@@ -6,6 +6,7 @@ import Movies from '../Movies/Movies.js';
 import SavedMovies from '../SavedMovies/SavedMovies.js';
 import Profile from '../Profile/Profile.js';
 import Login from '../Login/Login.js';
+import Register from '../Register/Register.js';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
       </Route>
       <Route path="/signin">
         <Login />
+      </Route>
+      <Route path="/signup">
+        <Register />
       </Route>
     </Switch>
   );
