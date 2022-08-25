@@ -1,11 +1,10 @@
 import React from 'react';
-import './Header.css';
 
 function Header() {
   return (
-    <header>
-      <h1>header</h1>
-    </header>
+    <footer>
+      <h2>Footer</h2>
+    </footer>
   );
 }
 

@@ -1,35 +1,24 @@
 import React from 'react';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
-import Header from '../Header/Header';
+import { Routes, Route } from 'react-router-dom';
 import Main from '../Main/main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import PageWrapper from '../PageWrapper/PageWrapper';
 
 function App() {
   return (
     <Routes>
-      <Header />
-      <Route exact path="/">
-        <Main />
-      </Route>
-      <Route path="/movies">
-        <Movies />
-      </Route>
-      <Route path="/saved-movies">
-        <SavedMovies />
-      </Route>
-      <Route path="/profile">
-        <Profile />
-      </Route>
-      <Route path="/signin">
-        <Login />
-      </Route>
-      <Route path="/signup">
-        <Register />
+      <Route path="/" element={<PageWrapper />}>
+        <Route index element={<Main />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/saved-movies" element={<SavedMovies />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/signup" element={<Register />} />
       </Route>
     </Routes>
   );
