@@ -1,16 +1,18 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch } from 'react-router-dom';
-import Main from '../Main/main.js';
-import Movies from '../Movies/Movies.js';
-import SavedMovies from '../SavedMovies/SavedMovies.js';
-import Profile from '../Profile/Profile.js';
-import Login from '../Login/Login.js';
-import Register from '../Register/Register.js';
+import { Route, Routes } from 'react-router-dom';
+import Header from '../Header/Header';
+import Main from '../Main/main';
+import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 function App() {
   return (
-    <Switch>
+    <Routes>
+      <Header />
       <Route exact path="/">
         <Main />
       </Route>
@@ -29,7 +31,7 @@ function App() {
       <Route path="/signup">
         <Register />
       </Route>
-    </Switch>
+    </Routes>
   );
 }
 
