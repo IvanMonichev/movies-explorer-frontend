@@ -1,0 +1,5 @@
+.main {
+  box-sizing: border-box;
+  border: 2px dotted #6565cb;
+  flex: 1 0 auto;
+}

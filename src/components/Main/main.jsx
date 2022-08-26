@@ -1,9 +1,10 @@
 import React from 'react';
+import './main.css';
 
 function Main() {
   return (
-    <main>
-      <p>Main</p>
+    <main className="main">
+      <h2>Main</h2>
     </main>
   );
 }
