@@ -1,6 +1,6 @@
 .header {
   box-sizing: border-box;
-  height: 74px;
+  min-height: 74px;
   background-color: #dddee3;
 }
 
@@ -111,7 +111,7 @@
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .burger {
     display: block;
     box-sizing: border-box;
@@ -167,5 +167,24 @@
     transform: rotate(-45deg);
     transition: top .3s cubic-bezier(0.21, 0.83, 0.26, 0.87), transform .3s cubic-bezier(0.21, 0.83, 0.26, 0.87) .3s;
   }
+}
 
+@media screen and (max-width: 540px) {
+  .header__wrapper {
+    width: calc(100% - 28px);
+  }
+
+  .menu__button {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .menu__item {
+    margin-right: 14px;
+  }
+
+  .menu__button_primary {
+    width: 54px;
+    height: 26px;
+  }
 }
