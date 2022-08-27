@@ -16,15 +16,14 @@ function Header() {
             </li>
           </ul>
         </nav>
-
         {/*
-        <nav className="menu header__menu-navigation">
-          <ul className="menu__list">
-            <li className="menu__item">
-              <a href="/" className="menu__button menu__button_navigation">Фильмы</a>
+         <nav className="menu header__menu-navigation">
+          <ul className="menu__list header__list-navigation">
+            <li className="menu__item header__item-navigation">
+              <a href="/" className="menu__button header__button-navigation">Фильмы</a>
             </li>
             <li className="menu__item">
-              <a href="/" className="menu__button menu__button_navigation menu__button_inactive">
+              <a href="/" className="menu__button header__button-navigation menu__button_inactive">
                 Сохранённые фильмы
               </a>
             </li>
@@ -35,7 +34,7 @@ function Header() {
           <div className="profile__avatar" />
         </div>
         <div className="header__burger burger">
-          <span className="burger__middle-line burger__middle-line_is-active" />
+          <span className="burger__middle-line" />
         </div>
         */}
       </div>
