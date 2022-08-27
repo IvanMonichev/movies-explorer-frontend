@@ -66,7 +66,7 @@
   width: 76px;
   height: 32px;
   color: #fff;
-  transition: opacity .3s;
+  transition: background-color 0.3s;
 }
 
 .menu__button_primary::before {
@@ -74,7 +74,7 @@
 }
 
 .menu__button_primary:hover {
-  opacity: .8;
+  background-color: #000;
 }
 
 .menu__button_inactive {
