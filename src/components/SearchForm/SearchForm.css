@@ -5,8 +5,9 @@
 .search__wrapper {
   width: calc(100% - 140px);
   max-width: 1140px;
-  margin: 0 auto;
-  padding: 60px 0 10px;
+  margin: 0 auto 10px;
+  padding: 60px 0 51px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .search-form__form {
@@ -69,8 +70,7 @@
   line-height: 1.29;
   text-align: center;
   margin: 42px 0 0;
-  padding: 0 0 70px;
-  border-bottom: 1px solid #e8e8e8;
+  cursor: pointer;
 }
 
 .filter__checkbox {

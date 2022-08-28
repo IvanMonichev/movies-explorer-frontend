@@ -8,10 +8,10 @@ function SearchForm() {
           <input type="text" name="search" className="search__input" placeholder="Фильм" required />
           <button className="search__button" type="submit">Найти</button>
         </form>
-        <lebel htmlFor="filter-checkbox" className="filter">
-          <input type="checkbox" id="filter-checkbox" className="filter__checkbox" />
+        <label htmlFor="filter-checkbox" className="filter">
+          <input name="filter-checkbox" type="checkbox" id="filter-checkbox" className="filter__checkbox" />
           Короткометражки
-        </lebel>
+        </label>
       </div>
     </section>
   );
