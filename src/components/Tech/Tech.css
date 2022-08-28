@@ -70,6 +70,7 @@
 
 @media screen and (max-width: 540px) {
   .tech__wrapper {
+    width: calc(100% - 28px);
     padding: 70px 0;
   }
 

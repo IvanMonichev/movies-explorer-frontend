@@ -10,7 +10,7 @@ function AboutMe() {
           <div className="content-student__text">
             <p className="content-student__name">Иван</p>
             <p className="content-student__description">Фронтенд-разработчик, 25 лет</p>
-            <p className="content-student__text">
+            <p className="content-student__paragraph">
               Я проживаю в солнечном городе-курорте&nbsp;
               <a className="text-link" href="https://yandex.ru/maps/geo/pyatigorsk/53119063/?ll=43.045867%2C44.052268&z=13.18">
                 Пятигорск

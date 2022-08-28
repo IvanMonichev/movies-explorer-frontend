@@ -7,6 +7,7 @@
 
 .about-me__content {
   margin: 66px 0 100px;
+  gap: 49px;
 }
 
 .content-student {
@@ -34,7 +35,7 @@
   margin: 18px 0 26px;
 }
 
-.content-student__text {
+.content-student__paragraph {
   margin: 0 0 100px;
   font-weight: 400;
   font-size: 14px;
@@ -57,7 +58,7 @@
 }
 
 .portfolio__list {
-  margin: 0;
+  margin: 50px 0 90px;
   padding: 0;
   list-style: none;
 }
@@ -87,4 +88,122 @@
   width: 27px;
   height: 60px;
   background: url("../../images/arrow-link.svg") no-repeat center;
+  transition: transform 0.3s;
+}
+
+.portfolio__link:hover::after {
+  transform: rotate(45deg);
+  animation: link-hover 0.3s ease-in-out 0.3s;
+}
+
+@keyframes link-hover {
+  0% {
+    right: 0;
+  }
+  50% {
+    right: -5px;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .about-me__wrapper {
+    width: calc(100% - 100px);
+    padding: 90px 0;
+  }
+
+  .about-me__content {
+    margin: 66px 0 91px;
+  }
+
+  .content-student__name {
+    margin: 0;
+    font-size: 40px;
+  }
+
+  .content-student__description {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 16px 0 20px;
+  }
+
+  .content-student__paragraph {
+    margin: 0 0 87px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .content-student__avatar {
+    max-width: 255px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .content-student {
+    flex-wrap: wrap;
+  }
+
+  .content-student__text {
+    order: 2;
+  }
+
+  .content-student__avatar {
+    max-width: 292px;
+    order: 1;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .about-me__wrapper {
+    padding: 70px 0;
+    width: calc(100% - 28px);
+  }
+
+  .content-student {
+    gap: 40px;
+  }
+
+  .about-me__content {
+    margin: 66px 0 70px;
+  }
+
+  .content-student__name {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .content-student__description {
+    font-size: 11px;
+    line-height: 1.45;
+    margin: 20px 0;
+  }
+
+  .content-student__paragraph {
+    margin: 0 0 40px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .portfolio__list {
+    margin: 40px 0 70px;
+  }
+
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 1.56;
+  }
+
+  .portfolio__link::after {
+    width: 18px;
+    height: 28px;
+    background-size: 75%;
+  }
 }
