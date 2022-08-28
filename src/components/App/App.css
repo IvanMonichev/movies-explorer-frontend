@@ -7,9 +7,13 @@
 
 .link {
   color: #000;
-  font-weight: 500;
+  font-weight: 400;
   position: relative;
   text-decoration: none;
+}
+
+.link_active {
+  font-weight: 500;
 }
 
 .link::before {
