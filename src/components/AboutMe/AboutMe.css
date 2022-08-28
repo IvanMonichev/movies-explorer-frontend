@@ -1,0 +1,48 @@
+.about-me__wrapper {
+  max-width: 1140px;
+  width: calc(100% - 140px);
+  padding: 110px 0 125px;
+  margin: 0 auto;
+}
+
+.about-me__content {
+  margin: 66px 0 100px;
+}
+
+.content-student {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.content-student__text {
+  max-width: 600px;
+}
+
+.content-student__name {
+  margin: 0;
+  font-size: 50px;
+  line-height: 1.16;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.content-student__description {
+  font-size: 18px;
+  line-height: 1.11;
+  font-weight: 500;
+  margin: 18px 0 26px;
+}
+
+.content-student__text {
+  margin: 0 0 100px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.57;
+}
+
+.content-student__avatar {
+  border-radius: 10px;
+  max-width: 270px;
+  width: 100%;
+}

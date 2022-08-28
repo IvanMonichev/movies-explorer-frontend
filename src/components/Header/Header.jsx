@@ -9,7 +9,7 @@ function Header() {
         <nav className="menu header__menu-start">
           <ul className="menu__list">
             <li className="menu__item">
-              <a href="/" className="menu__button">Регистрация</a>
+              <a href="/" className="menu__button link">Регистрация</a>
             </li>
             <li className="menu__item">
               <a href="/" className="menu__button menu__button_primary">Войти</a>
@@ -20,10 +20,12 @@ function Header() {
          <nav className="menu header__menu-navigation">
           <ul className="menu__list header__list-navigation">
             <li className="menu__item header__item-navigation">
-              <a href="/" className="menu__button header__button-navigation">Фильмы</a>
+              <a href="/" className="menu__button header__button-navigation link">Фильмы</a>
             </li>
             <li className="menu__item">
-              <a href="/" className="menu__button header__button-navigation menu__button_inactive">
+              // eslint-disable-next-line max-len
+              <a href="/" className="menu__button
+               header__button-navigation menu__button_inactive link">
                 Сохранённые фильмы
               </a>
             </li>
