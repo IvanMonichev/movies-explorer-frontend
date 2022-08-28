@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function AuthNavigation() {
+function NavTab() {
   const setActive = ({ isActive }) => {
     if (isActive) {
       return 'header__button-navigation link link_active';
@@ -36,4 +36,4 @@ function AuthNavigation() {
   );
 }
 
-export default AuthNavigation;
+export default NavTab;

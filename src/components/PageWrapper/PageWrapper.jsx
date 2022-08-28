@@ -9,7 +9,9 @@ function PageWrapper() {
     <>
       <HeadMain />
       <Header />
-      <Outlet />
+      <main className="main">
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

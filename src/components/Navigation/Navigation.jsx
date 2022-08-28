@@ -4,7 +4,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import AuthNavigation from '../AuthNavigation/AuthNavigation';
+import NavTab from '../NavTab/NavTab';
 
 function Navigation() {
   return (
@@ -24,8 +24,8 @@ function Navigation() {
           </nav>
         )}
       />
-      <Route path="/movies" element={<AuthNavigation />} />
-      <Route path="/saved-movies" element={<AuthNavigation />} />
+      <Route path="/movies" element={<NavTab />} />
+      <Route path="/saved-movies" element={<NavTab />} />
     </Routes>
   );
 }
