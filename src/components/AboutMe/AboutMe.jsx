@@ -33,11 +33,12 @@ function AboutMe() {
           <img className="content-student__avatar" src={ivanMonichevAvatar} alt="Аватр студента Яндекс Практикума Ивана Моничева" />
         </div>
         <div className="about-me__portfolio portfolio">
-          <ul className="about-me__list">
-            <ul className="about-me__item"><a href="https://ivanmonichev.github.io/how-to-learn/" className="about-me__link">Статичный сайт</a></ul>
-            <ul className="about-me__item"><a href="https://ivanmonichev.github.io/russian-travel/" className="about-me__link">Адаптивный сайт</a></ul>
-            <ul className="about-me__item"><a href="https://vyacheslav321.github.io/Lubimovka/" className="about-me__link">Сайт выполнненый в команде</a></ul>
-            <ul className="about-me__item"><a href="https://monichev.mesto.nomoredomains.sbs/" className="about-me__link">Одностраничное приложение</a></ul>
+          <h2 className="portfolio__title">Портфолио</h2>
+          <ul className="portfolio__list">
+            <li className="portfolio__item"><a href="https://ivanmonichev.github.io/how-to-learn/" className="portfolio__link">Статичный сайт</a></li>
+            <li className="portfolio__item"><a href="https://ivanmonichev.github.io/russian-travel/" className="portfolio__link">Адаптивный сайт</a></li>
+            <li className="portfolio__item"><a href="https://vyacheslav321.github.io/Lubimovka/" className="portfolio__link">Сайт выполнненый в команде</a></li>
+            <li className="portfolio__item"><a href="https://monichev.mesto.nomoredomains.sbs/" className="portfolio__link">Одностраничное приложение</a></li>
           </ul>
         </div>
       </div>
