@@ -105,3 +105,20 @@
 .filter__checkbox:checked::before {
   left: 22px;
 }
+
+@media screen and (max-width: 800px) {
+  .search__wrapper {
+    width: calc(100% - 60px);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .search__wrapper {
+    width: calc(100% - 36px);
+  }
+
+  .filter__checkbox {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+}
