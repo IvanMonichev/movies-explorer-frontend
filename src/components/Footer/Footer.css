@@ -3,6 +3,7 @@
 }
 
 .footer__wrapper {
+  max-width: 1140px;
   width: calc(100% - 140px);
   padding: 115px 0 20px;
   margin: 0 auto;
