@@ -1,7 +1,3 @@
-.search {
-  min-height: 247px;
-}
-
 .search__wrapper {
   width: calc(100% - 140px);
   max-width: 1140px;

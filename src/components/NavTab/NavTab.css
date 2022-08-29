@@ -131,11 +131,13 @@
     width: 100%;
     z-index: 2;
     justify-content: center;
+    display: none;
     transition: right .3s cubic-bezier(0.21, 0.83, 0.26, 0.87) .3s;
   }
 
   .header__profile_is-active {
     right: 0;
+    display: block;
   }
 }
 
