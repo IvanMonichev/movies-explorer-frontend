@@ -1,0 +1,20 @@
+.preloader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  border: 5px solid #a0a0a0;
+  border-left: 5px solid #3456f3;
+  animation: rotating 0.9s cubic-bezier(0.53, 0.21, 0.29, 0.67) infinite;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  } to {
+  transform: rotate(360deg);
+      }
+
+}
