@@ -1,5 +1,8 @@
 .header {
   box-sizing: border-box;
+}
+
+.header_gray {
   background-color: #dddee3;
 }
 
