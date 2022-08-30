@@ -66,7 +66,7 @@
   .burger::after {
     content: "";
     position: absolute;
-    top: 31px;
+    bottom: 11px;
     left: 8px;
     width: 28px;
     height: 3px;
@@ -85,9 +85,9 @@
   }
 
   .burger_is-active::after {
-    top: 21px;
+    bottom: 21px;
     transform: rotate(-45deg);
-    transition: top .3s cubic-bezier(0.21, 0.83, 0.26, 0.87), transform .3s cubic-bezier(0.21, 0.83, 0.26, 0.87) .3s;
+    transition: bottom .3s cubic-bezier(0.21, 0.83, 0.26, 0.87), transform .3s cubic-bezier(0.21, 0.83, 0.26, 0.87) .3s;
   }
 
   .header__menu-navigation {

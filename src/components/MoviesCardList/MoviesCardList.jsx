@@ -1,14 +1,16 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import loremData from '../../utils/lorem-data.json';
 
 function MoviesCardList() {
-  const isLimit = 7;
+  const isLimit = useLocation().pathname === '/movies' ? 7 : 3;
+
   return (
     <section className="movies">
       <div className="movies__wrapper">
         <ul className="movies-list">
-          {loremData.slice(isLimit - 7, isLimit).map(({
+          {loremData.slice(0, isLimit).map(({
             id, name, duration, images,
           }) => (
             <MoviesCard

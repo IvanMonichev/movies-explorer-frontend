@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 function NavTab() {
@@ -8,6 +8,12 @@ function NavTab() {
     }
     return 'header__button-navigation link';
   };
+  const [isOpenMenu, setOpenMenu] = useState(false);
+
+  const handleBurgerClick = () => {
+    setOpenMenu(!isOpenMenu);
+  };
+
   return (
     <>
       <nav className="menu header__menu-navigation">
@@ -29,8 +35,8 @@ function NavTab() {
         <p className="profile__name">Аккаунт</p>
         <div className="profile__avatar" />
       </div>
-      <div className="header__burger burger">
-        <span className="burger__middle-line" />
+      <div role="presentation" onClick={handleBurgerClick} className={`header__burger burger ${isOpenMenu ? 'burger_is-active' : ''}`}>
+        <span className={`burger__middle-line ${isOpenMenu ? 'burger__middle-line_is-active' : ''}`} />
       </div>
     </>
   );

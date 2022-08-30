@@ -1,10 +1,9 @@
 import React from 'react';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies() {
   return (
-    <section>
-      <p>SavedMovies</p>
-    </section>
+    <MoviesCardList />
   );
 }
 
