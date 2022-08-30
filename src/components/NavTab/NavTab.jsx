@@ -16,7 +16,7 @@ function NavTab() {
 
   return (
     <>
-      <nav className="menu header__menu-navigation">
+      <nav className={`menu header__menu-navigation ${isOpenMenu ? 'header__menu-navigation_is-active' : ''}`}>
         <ul className="menu__list header__list-navigation">
           <li className="menu__item header__item-navigation">
             <NavLink to="/movies" className={setActive}>
