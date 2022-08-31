@@ -9,7 +9,7 @@ function Header() {
   return (
     <header className={pathName === '/' ? 'header_gray' : 'header'}>
       <div className="header__wrapper">
-        <Link to="/" className="header__link-logo"><img src={logo} alt="Логотип" /></Link>
+        <Link to="/" className="logo header__link-logo"><img src={logo} alt="Логотип" /></Link>
         <Navigation />
       </div>
     </header>

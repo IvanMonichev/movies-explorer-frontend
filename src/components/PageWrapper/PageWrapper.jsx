@@ -7,7 +7,9 @@ import HeadMain from '../HeadMain/HeadMain';
 function PageWrapper() {
   return (
     <>
-      <HeadMain />
+      <HeadMain
+        titleName="Movies Express | О проекте"
+      />
       <Header />
       <main className="main">
         <Outlet />

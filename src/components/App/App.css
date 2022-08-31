@@ -13,6 +13,10 @@
   font-family: Inter, Arial, Helvetica, sans-serif;
 }
 
+.logo:hover {
+  animation: turnover 0.5s ease-in-out;
+}
+
 .link {
   color: #000;
   font-weight: 400;
@@ -73,4 +77,14 @@
 
 .text-link:hover::before {
   background-color: transparent;
+}
+
+@keyframes turnover {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }

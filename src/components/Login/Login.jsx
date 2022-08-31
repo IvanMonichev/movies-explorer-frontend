@@ -1,10 +1,11 @@
 import React from 'react';
+import HeadMain from '../HeadMain/HeadMain';
 
 function Login() {
   return (
-    <div>
-      <p>Login</p>
-    </div>
+    <HeadMain
+      titleName="Movies Express | Логин"
+    />
   );
 }
 

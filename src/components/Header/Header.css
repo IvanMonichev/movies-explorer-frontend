@@ -16,17 +16,3 @@
   justify-content: space-between;
   align-items: center;
 }
-
-.header__link-logo:hover {
-  animation: turnover 0.5s ease-in-out;
-}
-
-@keyframes turnover {
-  from {
-    transform: rotate(0);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
