@@ -3,7 +3,6 @@
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
 }
 
 .page {
@@ -13,8 +12,12 @@
   font-family: Inter, Arial, Helvetica, sans-serif;
 }
 
+.logo {
+  transition: opacity 0.6s;
+}
+
 .logo:hover {
-  animation: turnover 0.5s ease-in-out;
+  opacity: 0.8;
 }
 
 .link {
