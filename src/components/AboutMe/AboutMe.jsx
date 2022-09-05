@@ -12,7 +12,7 @@ function AboutMe() {
             <p className="content-student__description">Фронтенд-разработчик, 25 лет</p>
             <p className="content-student__paragraph">
               Я проживаю в солнечном городе-курорте&nbsp;
-              <a className="text-link" href="https://yandex.ru/maps/geo/pyatigorsk/53119063/?ll=43.045867%2C44.052268&z=13.18">
+              <a className="text-link" target="_blank" rel="noreferrer" href="https://yandex.ru/maps/geo/pyatigorsk/53119063/?ll=43.045867%2C44.052268&z=13.18">
                 Пятигорск
               </a>
               , закончил направление «Прикладная информатика в менеджменте»
@@ -23,12 +23,12 @@ function AboutMe() {
               но серьёзно начал этим заниматься только в текущем году,
               когда начал своё обучение в Яндекс Практикум. Сейчас я работаю
               контент-менеджером в диджитал-агентстве&nbsp;
-              <a className="text-link" href="https://webelement.ru/" rel="nofollow">
+              <a className="text-link" target="_blank" rel="noreferrer" href="https://webelement.ru/">
                 Webelement
               </a>
               , мечтаю о хорошей карьере в сфере IT.
             </p>
-            <a className="content-student__link link" href="https://github.com/IvanMonichev">Github</a>
+            <a className="content-student__link link" target="_blank" rel="noreferrer" href="https://github.com/IvanMonichev">Github</a>
           </div>
           <img className="content-student__avatar" src={ivanMonichevAvatar} alt="Аватр студента Яндекс Практикума Ивана Моничева" />
         </div>

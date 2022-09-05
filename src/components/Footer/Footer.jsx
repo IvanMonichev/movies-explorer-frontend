@@ -16,7 +16,7 @@ function Header() {
                 <a href="https://practicum.yandex.ru/" className="footer-menu__link link">Яндекс.Практикум</a>
               </li>
               <li className="menu__item">
-                <a href="https://github.com/IvanMonichev" className="footer-menu__link link">Github</a>
+                <a rel="noreferrer" target="_blank" href="https://github.com/IvanMonichev" className="footer-menu__link link">Github</a>
               </li>
             </ul>
           </nav>

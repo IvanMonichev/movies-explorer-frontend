@@ -19,10 +19,6 @@ function FormTemplate({
             <form className="form-body register__form">
               {children}
               <button type="submit" className="form-body__button">{buttonText}</button>
-              <p className="form__text">
-                Уже зарегистрированы?
-                <Link to="/sign-in" className="form__link">Войти</Link>
-              </p>
             </form>
           </div>
         </section>
