@@ -30,11 +30,11 @@
   width: 76px;
   height: 32px;
   color: #fff;
-  transition: background-color 0.3s;
+  transition: opacity 0.3s;
 }
 
 .menu__button_primary:hover {
-  background-color: #000;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 800px) {
