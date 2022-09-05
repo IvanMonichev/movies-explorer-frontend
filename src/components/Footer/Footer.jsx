@@ -8,8 +8,7 @@ function Header() {
         <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
         <div className="footer__body">
           <p className="footer__year">
-            ©
-            {date.getFullYear()}
+            {`© ${date.getFullYear()} Ivan Monichev`}
           </p>
           <nav className="menu footer-menu">
             <ul className="menu__list footer-menu__list">

@@ -1,11 +1,15 @@
-.register {
+.form {
   display: flex;
   justify-content: center;
   align-content: center;
   height: 100vh;
 }
 
-.register__wrapper {
+.logo {
+  height: 38px;
+}
+
+.form__wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,13 +19,14 @@
   padding: 232px 20px;
 }
 
-.register__title {
+.form__title {
   font-size: 24px;
-  line-height: 1.2;
-  margin: 40px 0 40px;
+  line-height: 1.208333;
+  margin: 40px 0;
+  font-weight: 500;
 }
 
-.form-register {
+.form-body {
   display: flex;
   flex-direction: column;
   row-gap: 6px;
@@ -30,7 +35,7 @@
   flex: 1;
 }
 
-.form-register__label {
+.form-body__label {
   display: flex;
   flex-direction: column;
   color: #A0A0A0;
@@ -38,33 +43,38 @@
   line-height: 1.2;
 }
 
-.form-register__input {
+.form-body__input {
   border: none;
   border-bottom: 1px solid #E8E8E8;
   padding: 5px 0 10px;
   margin: 0;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.2;
   transition: border-color 0.7s;
 }
 
-.form-register__input:focus-visible {
+.form-body__input:focus-visible {
   outline: none;
   border-color: #3456F3;
 }
 
-.form-register__input_incorrect {
+.form-body__input_incorrect {
   color: #EE3465;
 }
 
-.form-register__error {
+.form-body__error {
+  visibility: hidden;
   color: #EE3465;
   margin: 6px 0 0;
   font-size: 10px;
   line-height: 1.2;
 }
 
-.form-register__button {
+.form-body__error_is-active {
+  visibility: inherit;
+}
+
+.form-body__button {
   background-color: #3456F3;
   border-radius: 3px;
   color: white;
@@ -79,11 +89,11 @@
   transition: opacity 0.6s;
 }
 
-.form-register__button:hover {
+.form-body__button:hover {
   opacity: 0.8;
 }
 
-.register__text {
+.form__text {
   font-size: 14px;
   line-height: 1.2;
   color: #A0A0A0;
@@ -91,13 +101,13 @@
   margin: 16px 0 0;
 }
 
-.register__link {
+.form__link {
   color: #3456F3;
   text-decoration: none;
   margin: 0 0 0 6px;
   transition: opacity 0.6s;
 }
 
-.register__link:hover {
+.form__link:hover {
   opacity: 0.7;
 }
