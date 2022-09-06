@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header() {
+function Footer() {
   const date = new Date();
   return (
     <footer className="footer">
@@ -26,4 +26,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Footer;

@@ -26,6 +26,7 @@ function Navigation() {
       />
       <Route path="/movies" element={<NavTab />} />
       <Route path="/saved-movies" element={<NavTab />} />
+      <Route path="/profile" element={<NavTab />} />
     </Routes>
   );
 }

@@ -53,6 +53,7 @@
   line-height: 1.2;
 }
 
+
 @media screen and (max-width: 800px) {
   .tech__wrapper {
     width: calc(100% - 100px);
