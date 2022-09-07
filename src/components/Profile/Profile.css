@@ -1,0 +1,33 @@
+.form-profile__wrapper{
+  padding: 74px 0 70px;
+}
+
+.form-profile__title {
+  text-align: center;
+  margin: 0 0 123px;
+}
+
+.form-profile__label {
+  color: #000;
+  font-size: 11px;
+  line-height: 1.18;
+}
+
+.form-profile__input {
+  border: none;
+  padding: 0 0 16px;
+  font-size: 11px;
+  line-height: 1.18;
+  text-align: right;
+  z-index: -1;
+  margin: -14px 0 0;
+}
+
+.form-profile__input_separate {
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.form-body__input:focus-visible {
+  outline: none;
+  border-color: #E8E8E8;
+}
