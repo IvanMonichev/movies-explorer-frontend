@@ -18,11 +18,13 @@ function NavTab() {
     <>
       <nav className={`menu header__menu-navigation ${isOpenMenu ? 'header__menu-navigation_is-active' : ''}`}>
         <ul className="menu__list header__list-navigation">
-          <li className="menu__item header__item-navigation">
-            <NavLink to="/" className={setActive}>
-              Главная
-            </NavLink>
-          </li>
+          {isOpenMenu ? (
+            <li className="menu__item header__item-navigation">
+              <NavLink to="/" className={setActive}>
+                Главная
+              </NavLink>
+            </li>
+          ) : ''}
           <li className="menu__item header__item-navigation">
             <NavLink to="/movies" className={setActive}>
               Фильмы
