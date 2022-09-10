@@ -1,5 +1,9 @@
 .form-profile__wrapper{
-  padding: 74px 0 70px;
+  padding: 74px 30px 70px;
+}
+
+.form-profile {
+  height: 100%;
 }
 
 .form-profile__title {
@@ -30,4 +34,28 @@
 .form-body__input:focus-visible {
   outline: none;
   border-color: #E8E8E8;
+}
+
+.form-profile__text {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 400;
+  transition: opacity 0.6s;
+}
+
+.form-profile__text:hover {
+  opacity: 0.7;
+}
+
+.form-profile__text_separator {
+  margin: auto 0 10px;
+}
+.form-profile__text_important {
+  color: #ee3465;
+  font-weight: 500;
 }
