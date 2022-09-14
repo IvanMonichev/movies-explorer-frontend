@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import FormTemplate from '../FormTemplate/FormTemplate';
 
 function Register() {
@@ -8,6 +7,9 @@ function Register() {
       titleHead="Регистрация"
       title="Добро пожаловать!"
       buttonText="Зарегистрироваться"
+      formText="Уже зарегистрированы?"
+      link="/sign-in"
+      linkText="Войти"
     >
       <label htmlFor="name" className="form-body__label">
         Имя
@@ -24,10 +26,6 @@ function Register() {
         <input type="password" className="form-body__input" name="password" id="password" required />
         <span className="form-body__error">Что-то пошло не так...</span>
       </label>
-      <p className="form__text">
-        Уже зарегистрированы?
-        <Link to="/sign-in" className="form__link">Войти</Link>
-      </p>
     </FormTemplate>
   );
 }

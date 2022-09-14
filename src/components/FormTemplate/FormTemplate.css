@@ -32,6 +32,10 @@
   line-height: 1.2;
 }
 
+.form-body__label:last-of-type {
+  margin: 0 0 auto;
+}
+
 .form-body__input {
   border: none;
   border-bottom: 1px solid #E8E8E8;
@@ -71,7 +75,7 @@
   line-height: 1.2;
   border: none;
   padding: 0;
-  margin: auto 0 0;
+  margin: 0 0 0;
   width: 100%;
   height: 45px;
   cursor: pointer;
@@ -103,4 +107,31 @@
 
 .form__link:hover {
   opacity: 0.7;
+}
+
+@media screen and (max-width: 1280px) {
+  .form__wrapper {
+    padding: 70px 20px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .form__wrapper {
+    padding: 232px 20px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .form__wrapper {
+    padding: 56px 20px 30px;
+  }
+
+  .logo_template {
+    margin: 0 auto;
+  }
+
+  .form__title {
+    text-align: center;
+    margin: 50px 0 80px;
+  }
 }

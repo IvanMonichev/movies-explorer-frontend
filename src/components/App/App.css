@@ -6,6 +6,10 @@
   position: relative;
 }
 
+.page_lock {
+  overflow: hidden;
+}
+
 .page {
   box-sizing: border-box;
   margin: 0;

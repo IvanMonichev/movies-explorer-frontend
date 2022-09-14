@@ -12,37 +12,35 @@ function NavTab() {
 
   const handleBurgerClick = () => {
     setOpenMenu(!isOpenMenu);
+    document.querySelector('.page').classList.toggle('page_lock');
   };
 
   return (
     <>
-      <nav className={`menu header__menu-navigation ${isOpenMenu ? 'header__menu-navigation_is-active' : ''}`}>
+      <nav className={`menu header__menu-navigation ${isOpenMenu && 'header__menu-navigation_is-active'}`}>
         <ul className="menu__list header__list-navigation">
-          {isOpenMenu ? (
-            <li className="menu__item header__item-navigation">
-              <NavLink to="/" className={setActive}>
-                Главная
-              </NavLink>
-            </li>
-          ) : ''}
+          <li className="menu__item header__item-navigation header__item-navigation_inactive">
+            <NavLink to="/" className={setActive}>
+              Главная
+            </NavLink>
+          </li>
           <li className="menu__item header__item-navigation">
-            <NavLink to="/movies" className={setActive}>
+            <NavLink to="/movies" className={setActive} onClick={handleBurgerClick}>
               Фильмы
             </NavLink>
           </li>
           <li className="menu__item header__item-navigation">
-            <NavLink to="/saved-movies" className={setActive}>
+            <NavLink to="/saved-movies" className={setActive} onClick={handleBurgerClick}>
               Сохранённые фильмы
             </NavLink>
           </li>
         </ul>
       </nav>
-
-      <div className="profile header__profile">
+      <div className={`profile header__profile ${isOpenMenu && 'header__profile_is-active'}`}>
         <p className="profile__name">Аккаунт</p>
         <div className="profile__avatar" />
       </div>
-      <div role="presentation" onClick={handleBurgerClick} className={`header__burger burger ${isOpenMenu ? 'burger_is-active' : ''}`}>
+      <div role="presentation" onClick={handleBurgerClick} className={`header__burger burger ${isOpenMenu && 'burger_is-active'}`}>
         <span className={`burger__middle-line ${isOpenMenu ? 'burger__middle-line_is-active' : ''}`} />
       </div>
     </>

@@ -11,10 +11,10 @@ function MoviesCardList() {
       <div className="movies__wrapper">
         <ul className="movies-list">
           {loremData.slice(0, isLimit).map(({
-            id, name, duration, images,
+            _id, name, duration, images,
           }) => (
             <MoviesCard
-              key={id}
+              key={_id}
               name={name}
               duration={duration}
               images={images}
