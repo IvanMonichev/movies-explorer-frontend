@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 function NavTab() {
   const setActive = ({ isActive }) => {
@@ -36,10 +36,10 @@ function NavTab() {
           </li>
         </ul>
       </nav>
-      <div className={`profile header__profile ${isOpenMenu && 'header__profile_is-active'}`}>
+      <Link to="/profile" className={`profile header__profile ${isOpenMenu && 'header__profile_is-active'}`}>
         <p className="profile__name">Аккаунт</p>
         <div className="profile__avatar" />
-      </div>
+      </Link>
       <div role="presentation" onClick={handleBurgerClick} className={`header__burger burger ${isOpenMenu && 'burger_is-active'}`}>
         <span className={`burger__middle-line ${isOpenMenu ? 'burger__middle-line_is-active' : ''}`} />
       </div>
