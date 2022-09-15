@@ -21,7 +21,7 @@ function FormTemplate({
               <button type="submit" className="form-body__button">{buttonText}</button>
               <p className="form__text">
                 {formText}
-                <Link to={link} className="form__link">{linkText}</Link>
+                <Link to={link} className="navigation-link form__link">{linkText}</Link>
               </p>
             </form>
           </div>
