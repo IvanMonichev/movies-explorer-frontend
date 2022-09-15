@@ -53,7 +53,6 @@
   flex: 1 1 70%;
 }
 
-
 .timeline__text {
   display: flex;
   align-items: center;
@@ -64,12 +63,12 @@
 }
 
 .timeline__backend-time {
-  background-color: #3456F3;
+  background-color: #3456f3;
   color: #fff;
 }
 
 .timeline__frontend-time {
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 
 .timeline__name {

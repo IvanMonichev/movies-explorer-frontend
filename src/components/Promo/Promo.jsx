@@ -15,7 +15,7 @@ function Promo() {
         <div className="promo__content">
           <h1 className="promo__title">Учебный проект студента факультета Веб-разработки.</h1>
           <p className="promo__description">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
-          <a onClick={handleAnchorScroll} href="#about-project" className="button-light promo__button">Узнать больше</a>
+          <a onClick={handleAnchorScroll} href="/#about-project" className="button-light promo__button">Узнать больше</a>
         </div>
         <img className="promo__image" src={webGlobe} alt="Планета Земля из надписей «Web»" />
       </div>

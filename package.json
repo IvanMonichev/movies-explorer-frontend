@@ -16,8 +16,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "eslint": "npx eslint .",
-    "stylelint": "npx stylelint \"**/*.css\"",
+    "lint:js": "npx eslint .",
+    "lint:css": "npx stylelint \"**/*.{css,js}\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -49,6 +49,7 @@
     "eslint-plugin-react": "^7.31.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss-syntax": "^0.36.2",
+    "stylelint": "^14.11.0",
     "stylelint-config-standard": "^28.0.0",
     "stylelint-selector-bem-pattern": "^2.1.1"
   }

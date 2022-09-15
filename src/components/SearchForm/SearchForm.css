@@ -22,7 +22,6 @@
   box-sizing: border-box;
   padding: 0 0 0 22px;
   font-family: Inter, Arial, Helvetica, sans-serif;
-  -webkit-box-shadow: 0 0 0 30px #f4f4f4 inset;
 }
 
 .search__input::placeholder {
@@ -41,7 +40,7 @@
   width: 58px;
   height: 34px;
   border-radius: 48px;
-  background-color: #3456F3;
+  background-color: #3456f3;
   color: #fff;
   font-size: 11px;
   line-height: 1.64;
@@ -85,7 +84,7 @@
   content: "";
   display: block;
   border-radius: 50%;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   width: 8px;
   height: 8px;
   position: absolute;

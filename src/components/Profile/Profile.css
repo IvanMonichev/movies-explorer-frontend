@@ -1,4 +1,4 @@
-.form-profile__wrapper{
+.form-profile__wrapper {
   padding: 74px 30px 70px;
 }
 
@@ -28,12 +28,12 @@
 }
 
 .form-profile__input_separate {
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .form-body__input:focus-visible {
   outline: none;
-  border-color: #E8E8E8;
+  border-color: #e8e8e8;
 }
 
 .form-profile__text {
@@ -55,6 +55,7 @@
 .form-profile__text_separator {
   margin: auto 0 10px;
 }
+
 .form-profile__text_important {
   color: #ee3465;
   font-weight: 500;

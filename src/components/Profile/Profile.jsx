@@ -4,7 +4,7 @@ import HeadMain from '../HeadMain/HeadMain';
 function Profile() {
   return (
     <>
-      <HeadMain titleName="Movies Express | Профиль" />
+      <HeadMain titleName="Мой профиль" />
 
       <section className="form form-profile">
         <div className="form__wrapper form-profile__wrapper">
