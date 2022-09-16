@@ -44,7 +44,7 @@
 
 .tech__item {
   height: 60px;
-  border-radius: 18px;
+  border-radius: 10px;
   background-color: #e8e8e8;
   display: flex;
   justify-content: center;
