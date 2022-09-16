@@ -27,7 +27,15 @@
   margin: -14px 0 0;
 }
 
+.form-profile__input:focus-visible {
+  border-bottom: none;
+}
+
 .form-profile__input_separate {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.form-profile__input_separate:focus-visible {
   border-bottom: 1px solid #e8e8e8;
 }
 
