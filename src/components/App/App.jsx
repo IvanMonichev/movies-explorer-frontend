@@ -8,6 +8,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageWrapper from '../PageWrapper/PageWrapper';
 import NotFound from '../NotFound/NotFound';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/sign-in" element={<Login />} />
       <Route path="/sign-up" element={<Register />} />
       <Route path="/not-found" element={<NotFound />} />
+      <Route path="/preloader" element={<Preloader />} />
     </Routes>
   );
 }
