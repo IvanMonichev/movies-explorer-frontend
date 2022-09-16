@@ -12,7 +12,6 @@ function NavTab() {
 
   const handleBurgerClick = () => {
     setOpenMenu(!isOpenMenu);
-    document.querySelector('.page').classList.toggle('page_lock');
   };
 
   return (

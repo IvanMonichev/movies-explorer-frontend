@@ -5,7 +5,6 @@ function Profile() {
   return (
     <>
       <HeadMain titleName="Мой профиль" />
-
       <section className="form form-profile">
         <div className="form__wrapper form-profile__wrapper">
           <h1 className="form__title form-profile__title">Привет, Виталий!</h1>

@@ -10,6 +10,7 @@ function Navigation() {
   return (
     <Routes>
       <Route
+        exact
         path="/"
         element={(
           <nav className="menu header__menu-start">

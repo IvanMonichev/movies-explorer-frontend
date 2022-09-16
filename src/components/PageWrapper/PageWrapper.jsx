@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import HeadMain from '../HeadMain/HeadMain';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 function PageWrapper() {
   return (
@@ -13,6 +14,7 @@ function PageWrapper() {
       <main className="main">
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 }
