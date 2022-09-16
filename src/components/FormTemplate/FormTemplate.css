@@ -47,8 +47,8 @@
 }
 
 .form-body__input:focus-visible {
+  border-bottom: 1px solid #3456f3;
   outline: none;
-  border-color: #3456f3;
 }
 
 .form-body__input_incorrect {

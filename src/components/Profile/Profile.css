@@ -31,11 +31,6 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
-.form-body__input:focus-visible {
-  outline: none;
-  border-color: #e8e8e8;
-}
-
 .form-profile__text {
   display: inline;
   padding: 0;
