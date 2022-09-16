@@ -34,7 +34,8 @@ function Profile() {
             </label>
             <button type="button" className="form-profile__text form-profile__text_separator">Редактировать</button>
             <button type="button" className="form-profile__text form-profile__text_important">Выйти из аккаунта</button>
-            <button type="submit" className="form-body__button form-body__button_inactive">Сохранить</button>
+            <span className="form-body__error form-profile__error">При обновлении профиля произошла ошибка.</span>
+            <button type="submit" className="form-body__button form-body__button_inactive form-body__button_disabled">Сохранить</button>
           </form>
         </div>
       </section>

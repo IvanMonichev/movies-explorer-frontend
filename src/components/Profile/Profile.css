@@ -60,3 +60,14 @@
   color: #ee3465;
   font-weight: 500;
 }
+
+.form-body__button_disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+}
+
+.form-profile__error {
+  font-size: 11px;
+  text-align: center;
+  margin: 0 0 20px;
+}
