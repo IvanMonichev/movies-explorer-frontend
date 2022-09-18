@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
 function MoviesCard({ name, duration, images }) {
@@ -15,11 +14,5 @@ function MoviesCard({ name, duration, images }) {
     </li>
   );
 }
-
-MoviesCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
-  images: PropTypes.string.isRequired,
-};
 
 export default MoviesCard;
