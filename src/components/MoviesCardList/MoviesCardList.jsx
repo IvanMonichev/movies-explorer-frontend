@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import loremData from '../../utils/lorem-data.json';
+import moviesApi from '../../utils/MoviesApi';
 
 function MoviesCardList() {
+  const [movies, setMovies] = useState([]);
+
   const isLimit = useLocation().pathname === '/movies' ? 7 : 3;
+
+  const handleSearchSubmit = () => {
+    moviesApi.getMovies()
+      .then((movies) => {
+        setMovies(movies);
+      })
+      .catch(() => {
+        console.log('Ошибка');
+      });
+  };
+
+  handleSearchSubmit();
 
   return (
     <section className="movies">
       <div className="movies__wrapper">
         <ul className="movies-list">
-          {loremData.slice(0, isLimit).map(({
-            _id, name, duration, images,
-          }) => (
+          {movies.slice(0, isLimit).map((movie) => (
             <MoviesCard
-              key={_id}
-              name={name}
-              duration={duration}
-              images={images}
+              key={movie.id}
+              name={movie.nameRU}
+              duration={movie.duration}
+              images={`https://api.nomoreparties.co${movie.image.url}`}
             />
           ))}
         </ul>
