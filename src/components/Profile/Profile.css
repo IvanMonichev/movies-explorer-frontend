@@ -1,0 +1,76 @@
+.form-profile__wrapper {
+  padding: 74px 30px 70px;
+}
+
+.form-profile {
+  height: 100%;
+}
+
+.form-profile__title {
+  text-align: center;
+  margin: 0 0 123px;
+}
+
+.form-profile__label {
+  color: #000;
+  font-size: 11px;
+  line-height: 1.18;
+}
+
+.form-profile__input {
+  border: none;
+  padding: 0 0 16px;
+  font-size: 11px;
+  line-height: 1.18;
+  text-align: right;
+  z-index: -1;
+  margin: -14px 0 0;
+}
+
+.form-profile__input:focus-visible {
+  border-bottom: none;
+}
+
+.form-profile__input_separate {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.form-profile__input_separate:focus-visible {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.form-profile__text {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 400;
+  transition: opacity 0.6s;
+}
+
+.form-profile__text:hover {
+  opacity: 0.7;
+}
+
+.form-profile__text_separator {
+  margin: auto 0 10px;
+}
+
+.form-profile__text_important {
+  color: #ee3465;
+  font-weight: 500;
+}
+
+.form-body__button_disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+}
+
+.form-profile__error {
+  font-size: 11px;
+  text-align: center;
+  margin: 0 0 20px;
+}

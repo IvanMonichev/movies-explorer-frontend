@@ -1,0 +1,131 @@
+.about-project {
+  box-sizing: border-box;
+}
+
+.about-project__wrapper {
+  box-sizing: border-box;
+  max-width: 1140px;
+  width: calc(100% - 140px);
+  margin: 0 auto;
+  padding: 110px 0;
+}
+
+.about-project__content {
+  margin: 70px 0 176px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.about-project__text {
+  max-width: 550px;
+  width: 50%;
+}
+
+.process-text__title {
+  margin: 0 0 26px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.process-text__paragraph {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.timeline {
+  display: flex;
+}
+
+.timeline__item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 14px;
+}
+
+.timeline__backend {
+  flex: 1 1 20%;
+}
+
+.timeline__frontend {
+  flex: 1 1 70%;
+}
+
+.timeline__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1.1;
+  height: 36px;
+}
+
+.timeline__backend-time {
+  background-color: #3456f3;
+  color: #fff;
+}
+
+.timeline__frontend-time {
+  background-color: #f2f2f2;
+}
+
+.timeline__name {
+  color: #a0a0a0;
+  line-height: 1.2;
+  font-weight: 500;
+  text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  .about-project__wrapper {
+    width: calc(100% - 100px);
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .about-project__wrapper {
+    width: calc(100% - 36px);
+  }
+
+  .about-project__content {
+    flex-direction: column;
+    margin: 70px 0 100px;
+  }
+
+  .about-project__text {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about-project__wrapper {
+    padding: 70px 0;
+  }
+
+  .about-project__content {
+    gap: 56px;
+    margin: 70px 0 60px;
+  }
+
+  .process-text__title {
+    margin: 0 0 16px;
+    font-size: 18px;
+    line-height: 1.1;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .process-text__paragraph {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .timeline__text {
+    font-size: 11px;
+    line-height: 1.1;
+  }
+}

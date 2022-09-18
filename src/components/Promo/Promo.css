@@ -1,0 +1,126 @@
+.promo {
+  background-color: #dddee3;
+  min-height: 574px;
+}
+
+.promo__wrapper {
+  box-sizing: border-box;
+  padding: 75px 0 85px;
+  max-width: 1140px;
+  width: calc(100% - 140px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  height: 100%;
+}
+
+.promo__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.promo__title {
+  margin: 0;
+  max-width: 640px;
+  font-size: 50px;
+  line-height: 1.16;
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.promo__description {
+  margin: 36px 0 146px;
+  font-size: 13px;
+  line-height: 1.2;
+  max-width: 310px;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+
+.button-light {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 129px;
+  height: 36px;
+  width: 100%;
+  border: 1px solid #000;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.33;
+  font-weight: 500;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.6s, color 0.6s;
+}
+
+.button-light:hover {
+  background-color: #000;
+  color: #dddee3;
+}
+
+.promo__image {
+  max-width: 310px;
+  width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+  .promo__title {
+    font-size: 40px;
+    line-height: 1.25;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .promo__wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 140px 0 46px;
+  }
+
+  .promo__content {
+    order: 2;
+    align-items: center;
+  }
+
+  .promo__image {
+    order: 1;
+  }
+
+  .promo__title {
+    text-align: center;
+  }
+
+  .promo__description {
+    text-align: center;
+    margin: 22px 0 92px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .promo__wrapper {
+    width: calc(100% - 20px);
+    gap: 44px;
+    padding: 70px 0 30px;
+  }
+
+  .promo__title {
+    font-size: 30px;
+    line-height: 1.27;
+  }
+
+  .promo__description {
+    margin: 24px 0 80px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .promo__image {
+    box-sizing: border-box;
+    padding: 0 40px;
+  }
+}
