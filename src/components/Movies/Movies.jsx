@@ -1,14 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import HeadMain from '../HeadMain/HeadMain';
+import moviesApi from '../../utils/MoviesApi';
 
 function Movies() {
+  const [loading, setLoading] = useState(true);
+  const [noSearch, setNoSearch] = useState(true);
+  const [movies, setMovies] = useState([]);
+  const [foundMovie, setFoundMovie] = useState([]);
+  const isLimit = useLocation().pathname === '/movies' ? 7 : 3;
+
+  useEffect(() => {
+    setNoSearch(true);
+    setMovies([]);
+    setLoading(true);
+  }, []);
+
+  // Фильтр фильмов по поиску
+  const handleSearchSubmit = (query) => {
+    const sortedMovie = movies.filter((item) => {
+      const value = query.toLowerCase().trim();
+      const movieRu = item.nameRU.toLowerCase().trim();
+      const movieEn = item.nameEN.toLowerCase().trim();
+      return movieRu.includes(value) || movieEn.includes(value) ? item : '';
+    });
+    setNoSearch(false);
+    setFoundMovie(sortedMovie);
+    console.log(foundMovie);
+  };
+
+  // Рендеринг фильмов
+  const renderFilms = (value) => {
+    setLoading(true);
+    moviesApi.getMovies()
+      .then((response) => {
+        setMovies(response);
+        handleSearchSubmit(value);
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setLoading(false));
+  };
+
   return (
     <>
       <HeadMain titleName="Фильмы" />
-      <SearchForm />
-      <MoviesCardList />
+      <SearchForm
+        onSearchSubmit={renderFilms}
+      />
+      {!noSearch && (
+        <MoviesCardList
+          movies={foundMovie}
+          loading={loading}
+          isLimit={isLimit}
+        />
+      )}
     </>
   );
 }
