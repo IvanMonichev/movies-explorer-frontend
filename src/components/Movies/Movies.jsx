@@ -10,6 +10,7 @@ function Movies() {
   const [noSearch, setNoSearch] = useState(true);
   const [movies, setMovies] = useState([]);
   const [foundMovie, setFoundMovie] = useState([]);
+  const [notFound, setNotFound] = useState(false);
   const isLimit = useLocation().pathname === '/movies' ? 7 : 3;
 
   useEffect(() => {
@@ -20,15 +21,20 @@ function Movies() {
 
   // Фильтр фильмов по поиску
   const handleSearchSubmit = (query) => {
+    setNoSearch(false);
     const sortedMovie = movies.filter((item) => {
       const value = query.toLowerCase().trim();
       const movieRu = item.nameRU.toLowerCase().trim();
       const movieEn = item.nameEN.toLowerCase().trim();
-      return movieRu.includes(value) || movieEn.includes(value) ? item : '';
+      return (movieRu.includes(value) || movieEn.includes(value)) && item;
     });
-    setNoSearch(false);
+
+    console.log(sortedMovie);
+    if (sortedMovie.length === 0) {
+      setNotFound(true);
+    }
+
     setFoundMovie(sortedMovie);
-    console.log(foundMovie);
   };
 
   // Рендеринг фильмов
@@ -57,6 +63,7 @@ function Movies() {
           movies={foundMovie}
           loading={loading}
           isLimit={isLimit}
+          notFound={notFound}
         />
       )}
     </>

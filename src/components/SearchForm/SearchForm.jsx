@@ -26,7 +26,6 @@ function SearchForm({ onSearchSubmit }) {
           />
           <button className="search__button" type="submit">Найти</button>
         </form>
-        <span className="search__error">Что-то пошло не так...</span>
         <label htmlFor="filter-checkbox" className="filter">
           <input
             name="filter-checkbox"
