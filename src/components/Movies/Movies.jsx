@@ -11,6 +11,7 @@ function Movies() {
   const [movies, setMovies] = useState([]);
   const [foundMovie, setFoundMovie] = useState([]);
   const [notFound, setNotFound] = useState(false);
+  const [errorText, setErrorText] = useState('Что-то пошло не так');
   const isLimit = useLocation().pathname === '/movies' ? 7 : 3;
 
   useEffect(() => {
@@ -32,8 +33,10 @@ function Movies() {
     console.log(sortedMovie);
     if (sortedMovie.length === 0) {
       setNotFound(true);
+      setErrorText('Ничего не найдено');
+      return;
     }
-
+    setNotFound(false);
     setFoundMovie(sortedMovie);
   };
 
@@ -47,6 +50,7 @@ function Movies() {
         console.log(response);
       })
       .catch((error) => {
+        setErrorText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
         console.log(error);
       })
       .finally(() => setLoading(false));
@@ -64,6 +68,7 @@ function Movies() {
           loading={loading}
           isLimit={isLimit}
           notFound={notFound}
+          errorText={errorText}
         />
       )}
     </>

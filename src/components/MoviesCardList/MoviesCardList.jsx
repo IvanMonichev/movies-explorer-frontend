@@ -8,13 +8,14 @@ function MoviesCardList({
   loading,
   isLimit,
   notFound,
+  errorText,
 }) {
   if (loading) {
     return <Preloader />;
   }
 
   if (notFound) {
-    return <InfoTooltip errorText="Ничего не найдено" />;
+    return <InfoTooltip errorText={errorText} />;
   }
 
   return (
