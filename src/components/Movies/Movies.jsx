@@ -16,16 +16,18 @@ function Movies() {
 
   const { width } = useWindowDimensions();
 
+  // Адаптация количества карточек в зависимости от ширины экрана
   useEffect(() => {
-    if (width <= 1280 && width > 800) {
-      setLimit(7);
-    } else if (width <= 800 && width > 400) {
+    if (width <= 800 && width > 400) {
       setLimit(3);
     } else if (width <= 400) {
       setLimit(5);
+    } else {
+      setLimit(7);
     }
   }, [width]);
 
+  // Пагинация
   const addMovies = () => setLimit(limit * 2);
 
   // Фильтр фильмов по поиску
@@ -43,6 +45,7 @@ function Movies() {
       setErrorText('Ничего не найдено');
       return;
     }
+    localStorage.setItem('savedMovies', JSON.stringify(sortedMovie));
     setNotFound(false);
     setFoundMovie(sortedMovie);
   };
@@ -59,6 +62,12 @@ function Movies() {
         setErrorText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
       })
       .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    setNoSearch(false);
+    console.log(JSON.parse(localStorage.getItem('savedMovies')));
+    setFoundMovie(JSON.parse(localStorage.getItem('savedMovies')));
   }, []);
 
   return (
