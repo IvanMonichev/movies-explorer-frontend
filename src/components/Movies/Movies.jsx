@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import HeadMain from '../HeadMain/HeadMain';
@@ -12,13 +11,13 @@ function Movies() {
   const [foundMovie, setFoundMovie] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [errorText, setErrorText] = useState('Что-то пошло не так');
-  const isLimit = useLocation().pathname === '/movies' ? 7 : 3;
+  const [limit, setLimit] = useState(0);
 
   useEffect(() => {
-    setNoSearch(true);
-    setMovies([]);
-    setLoading(true);
+    setLimit(7);
   }, []);
+
+  const addMovies = () => setLimit(limit * 2);
 
   // Фильтр фильмов по поиску
   const handleSearchSubmit = (query) => {
@@ -30,7 +29,6 @@ function Movies() {
       return (movieRu.includes(value) || movieEn.includes(value)) && item;
     });
 
-    console.log(sortedMovie);
     if (sortedMovie.length === 0) {
       setNotFound(true);
       setErrorText('Ничего не найдено');
@@ -40,35 +38,34 @@ function Movies() {
     setFoundMovie(sortedMovie);
   };
 
-  // Рендеринг фильмов
-  const renderFilms = (value) => {
+  useEffect(() => {
     setLoading(true);
     moviesApi.getMovies()
       .then((response) => {
         setMovies(response);
-        handleSearchSubmit(value);
-        console.log(response);
       })
       .catch((error) => {
-        setErrorText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        // eslint-disable-next-line no-console
         console.log(error);
+        setErrorText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
       })
       .finally(() => setLoading(false));
-  };
+  }, []);
 
   return (
     <>
       <HeadMain titleName="Фильмы" />
       <SearchForm
-        onSearchSubmit={renderFilms}
+        onSearchSubmit={handleSearchSubmit}
       />
       {!noSearch && (
         <MoviesCardList
           movies={foundMovie}
           loading={loading}
-          isLimit={isLimit}
           notFound={notFound}
           errorText={errorText}
+          limit={limit}
+          onAddFilms={addMovies}
         />
       )}
     </>

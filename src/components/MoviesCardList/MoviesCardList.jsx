@@ -6,23 +6,25 @@ import InfoTooltip from '../infoTooltip/infoTooltip';
 function MoviesCardList({
   movies,
   loading,
-  isLimit,
   notFound,
+  isError,
   errorText,
+  limit,
+  onAddFilms,
 }) {
   if (loading) {
     return <Preloader />;
   }
 
   if (notFound) {
-    return <InfoTooltip errorText={errorText} />;
+    return <InfoTooltip errorText={errorText} isError={isError} />;
   }
 
   return (
     <section className="movies">
       <div className="movies__wrapper">
         <ul className="movies-list">
-          {movies.slice(0, isLimit).map((movie) => (
+          {movies.slice(0, limit).map((movie) => (
             <MoviesCard
               key={movie.id}
               name={movie.nameRU}
@@ -31,7 +33,7 @@ function MoviesCardList({
             />
           ))}
         </ul>
-        <button type="button" className="movies__button">Ещё</button>
+        {limit < movies.length && <button onClick={onAddFilms} type="button" className="movies__button">Ещё</button>}
       </div>
     </section>
   );
