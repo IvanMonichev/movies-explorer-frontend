@@ -13,6 +13,7 @@ function Movies() {
   const [notFound, setNotFound] = useState(false);
   const [errorText, setErrorText] = useState('Что-то пошло не так');
   const [limit, setLimit] = useState(0);
+  const [shortCheckeed, setShortChecked] = useState(false);
 
   const { width } = useWindowDimensions();
 
@@ -30,7 +31,11 @@ function Movies() {
   // Пагинация
   const addMovies = () => setLimit(limit * 2);
 
-  // Фильтр фильмов по поиску
+  const handleShortFitler = () => {
+
+  }
+
+  // Поиск фильмов
   const handleSearchSubmit = (query) => {
     setNoSearch(false);
     const sortedMovie = movies.filter((item) => {
@@ -65,9 +70,12 @@ function Movies() {
   }, []);
 
   useEffect(() => {
-    setNoSearch(false);
-    console.log(JSON.parse(localStorage.getItem('savedMovies')));
-    setFoundMovie(JSON.parse(localStorage.getItem('savedMovies')));
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    if (savedMovies) {
+      setNoSearch(false);
+      console.log(savedMovies);
+      setFoundMovie(savedMovies);
+    }
   }, []);
 
   return (
