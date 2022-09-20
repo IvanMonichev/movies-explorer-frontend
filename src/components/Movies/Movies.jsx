@@ -3,6 +3,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import HeadMain from '../HeadMain/HeadMain';
 import moviesApi from '../../utils/MoviesApi';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 function Movies() {
   const [loading, setLoading] = useState(true);
@@ -13,9 +14,17 @@ function Movies() {
   const [errorText, setErrorText] = useState('Что-то пошло не так');
   const [limit, setLimit] = useState(0);
 
+  const { width } = useWindowDimensions();
+
   useEffect(() => {
-    setLimit(7);
-  }, []);
+    if (width <= 1280 && width > 800) {
+      setLimit(7);
+    } else if (width <= 800 && width > 400) {
+      setLimit(3);
+    } else if (width <= 400) {
+      setLimit(5);
+    }
+  }, [width]);
 
   const addMovies = () => setLimit(limit * 2);
 
