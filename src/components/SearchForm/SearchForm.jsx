@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SearchForm({ onSearchSubmit }) {
+function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
   const [search, setSearch] = useState('');
 
   const handleChangeSearch = (event) => {
@@ -32,6 +32,8 @@ function SearchForm({ onSearchSubmit }) {
             type="checkbox"
             id="filter-checkbox"
             className="filter__checkbox"
+            onChange={onHandleCheck}
+            checked={shortChecked || false}
           />
           Короткометражки
         </label>

@@ -9,11 +9,12 @@ function Movies() {
   const [loading, setLoading] = useState(true);
   const [noSearch, setNoSearch] = useState(true);
   const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [foundMovie, setFoundMovie] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [errorText, setErrorText] = useState('Что-то пошло не так');
   const [limit, setLimit] = useState(0);
-  const [shortCheckeed, setShortChecked] = useState(false);
+  const [shortChecked, setShortChecked] = useState(false);
 
   const { width } = useWindowDimensions();
 
@@ -31,14 +32,36 @@ function Movies() {
   // Пагинация
   const addMovies = () => setLimit(limit * 2);
 
-  const handleShortFitler = () => {
+  const checkedForFilter = () => {
+    if (!shortChecked) {
+      const shortMovies = movies.filter((movie) => movie.duration <= 40);
+      setFilteredMovies(shortMovies);
+      return;
+    }
+    setFilteredMovies(movies);
+  };
 
-  }
+  useEffect(() => {
+    if (localStorage.getItem('savedChecked') === 'true') {
+      setShortChecked(false);
+      checkedForFilter();
+      return;
+    }
+    setShortChecked(true);
+    checkedForFilter();
+  }, []);
+
+  const handleShortFilter = () => {
+    setShortChecked(!shortChecked);
+    localStorage.setItem('savedChecked', shortChecked);
+    checkedForFilter();
+  };
 
   // Поиск фильмов
   const handleSearchSubmit = (query) => {
     setNoSearch(false);
-    const sortedMovie = movies.filter((item) => {
+
+    const sortedMovie = filteredMovies.filter((item) => {
       const value = query.toLowerCase().trim();
       const movieRu = item.nameRU.toLowerCase().trim();
       const movieEn = item.nameEN.toLowerCase().trim();
@@ -50,6 +73,7 @@ function Movies() {
       setErrorText('Ничего не найдено');
       return;
     }
+
     localStorage.setItem('savedMovies', JSON.stringify(sortedMovie));
     setNotFound(false);
     setFoundMovie(sortedMovie);
@@ -60,6 +84,7 @@ function Movies() {
     moviesApi.getMovies()
       .then((response) => {
         setMovies(response);
+        setFilteredMovies(response);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
@@ -73,7 +98,6 @@ function Movies() {
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     if (savedMovies) {
       setNoSearch(false);
-      console.log(savedMovies);
       setFoundMovie(savedMovies);
     }
   }, []);
@@ -83,6 +107,8 @@ function Movies() {
       <HeadMain titleName="Фильмы" />
       <SearchForm
         onSearchSubmit={handleSearchSubmit}
+        onHandleCheck={handleShortFilter}
+        shortChecked={shortChecked}
       />
       {!noSearch && (
         <MoviesCardList
