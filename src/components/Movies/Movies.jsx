@@ -32,52 +32,6 @@ function Movies() {
   // Пагинация
   const addMovies = () => setLimit(limit * 2);
 
-  const checkedForFilter = () => {
-    if (shortChecked) {
-      const shortMovies = movies.filter((movie) => movie.duration <= 40);
-      setFilteredMovies(shortMovies);
-      return;
-    }
-    setFilteredMovies(movies);
-  };
-  console.log(shortChecked);
-  useEffect(() => {
-    if (localStorage.getItem('savedChecked') === 'true') {
-      setShortChecked(true);
-      return;
-    }
-    checkedForFilter();
-  }, []);
-
-  const handleShortFilter = (event) => {
-    setShortChecked(event.target.checked);
-    console.log(event.target.checked);
-    localStorage.setItem('savedChecked', event.target.checked);
-    checkedForFilter();
-  };
-
-  // Поиск фильмов
-  const handleSearchSubmit = (query) => {
-    setNoSearch(false);
-
-    const sortedMovie = filteredMovies.filter((item) => {
-      const value = query.toLowerCase().trim();
-      const movieRu = item.nameRU.toLowerCase().trim();
-      const movieEn = item.nameEN.toLowerCase().trim();
-      return (movieRu.includes(value) || movieEn.includes(value)) && item;
-    });
-
-    if (sortedMovie.length === 0) {
-      setNotFound(true);
-      setErrorText('Ничего не найдено');
-      return;
-    }
-
-    localStorage.setItem('savedMovies', JSON.stringify(sortedMovie));
-    setNotFound(false);
-    setFoundMovie(sortedMovie);
-  };
-
   useEffect(() => {
     setLoading(true);
     moviesApi.getMovies()
@@ -100,6 +54,49 @@ function Movies() {
       setFoundMovie(savedMovies);
     }
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('savedChecked') === 'true') {
+      setShortChecked(true);
+    } else {
+      setShortChecked(false);
+    }
+  }, []);
+
+  const handleShortFilter = (event) => {
+    setShortChecked(event.target.checked);
+    localStorage.setItem('savedChecked', event.target.checked);
+  };
+
+  useEffect(() => {
+    if (shortChecked) {
+      const shortMovies = movies.filter((movie) => movie.duration <= 40);
+      setFilteredMovies(shortMovies);
+    } else {
+      setFilteredMovies(movies);
+    }
+  }, [shortChecked, movies]);
+
+  // Поиск фильмов
+  const handleSearchSubmit = (query) => {
+    setNoSearch(false);
+    const sortedMovie = filteredMovies.filter((item) => {
+      const value = query.toLowerCase().trim();
+      const movieRu = item.nameRU.toLowerCase().trim();
+      const movieEn = item.nameEN.toLowerCase().trim();
+      return (movieRu.includes(value) || movieEn.includes(value)) && item;
+    });
+
+    if (sortedMovie.length === 0) {
+      setNotFound(true);
+      setErrorText('Ничего не найдено');
+      return;
+    }
+
+    localStorage.setItem('savedMovies', JSON.stringify(sortedMovie));
+    setNotFound(false);
+    setFoundMovie(sortedMovie);
+  };
 
   return (
     <>

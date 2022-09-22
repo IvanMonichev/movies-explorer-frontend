@@ -32,8 +32,8 @@ function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
             type="checkbox"
             id="filter-checkbox"
             className="filter__checkbox"
-            onClick={onHandleCheck}
-            defaultChecked={shortChecked}
+            onChange={onHandleCheck}
+            checked={shortChecked}
           />
           Короткометражки
         </label>
