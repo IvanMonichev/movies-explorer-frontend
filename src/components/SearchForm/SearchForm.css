@@ -62,9 +62,11 @@
   color: #ee3465;
   font-size: 12px;
   line-height: 1.2;
-  text-align: center;
   display: block;
-  margin: 15px 0 0;
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  transform: translate(-50%, -50%);
 }
 
 .search__error_inactive {

@@ -90,6 +90,7 @@ function Movies() {
     if (sortedMovie.length === 0) {
       setNotFound(true);
       setErrorText('Ничего не найдено');
+      localStorage.setItem('savedMovies', JSON.stringify(sortedMovie));
       return;
     }
 

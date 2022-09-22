@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 
 function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
-  const [search, setSearch] = useState('');
   const {
     register,
     formState: {
@@ -11,13 +10,8 @@ function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
     handleSubmit,
   } = useForm();
 
-  const handleChangeSearch = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    onSearchSubmit(search);
+  const handleSearchSubmit = (data) => {
+    onSearchSubmit(data.search);
   };
 
   return (
@@ -28,7 +22,6 @@ function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
             type="text"
             className="search__input"
             placeholder="Фильм"
-            onChange={handleChangeSearch}
             {...register('search', {
               required: 'Нужно ввести ключевое слово',
             })}
