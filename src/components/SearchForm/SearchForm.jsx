@@ -6,9 +6,12 @@ function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
     register,
     formState: {
       errors,
+      isValid,
     },
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    mode: 'onChange',
+  });
 
   const handleSearchSubmit = (data) => {
     onSearchSubmit(data.search);
@@ -24,10 +27,14 @@ function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
             placeholder="Фильм"
             {...register('search', {
               required: 'Нужно ввести ключевое слово',
+              maxLength: {
+                value: 30,
+                message: 'Максимум 30 символов',
+              },
             })}
           />
           <span className="search__error">{errors.search && `${errors.search.message || 'Что-то пошло не так...'}`}</span>
-          <button className="search__button" type="submit">Найти</button>
+          <button className={`search__button ${!isValid ? 'search__button_invalid' : ''}`} type="submit" disabled={!isValid}>Найти</button>
         </form>
         <label htmlFor="filter-checkbox" className="filter">
           <input
