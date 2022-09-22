@@ -33,27 +33,26 @@ function Movies() {
   const addMovies = () => setLimit(limit * 2);
 
   const checkedForFilter = () => {
-    if (!shortChecked) {
+    if (shortChecked) {
       const shortMovies = movies.filter((movie) => movie.duration <= 40);
       setFilteredMovies(shortMovies);
       return;
     }
     setFilteredMovies(movies);
   };
-
+  console.log(shortChecked);
   useEffect(() => {
     if (localStorage.getItem('savedChecked') === 'true') {
-      setShortChecked(false);
-      checkedForFilter();
+      setShortChecked(true);
       return;
     }
-    setShortChecked(true);
     checkedForFilter();
   }, []);
 
-  const handleShortFilter = () => {
-    setShortChecked(!shortChecked);
-    localStorage.setItem('savedChecked', shortChecked);
+  const handleShortFilter = (event) => {
+    setShortChecked(event.target.checked);
+    console.log(event.target.checked);
+    localStorage.setItem('savedChecked', event.target.checked);
     checkedForFilter();
   };
 
