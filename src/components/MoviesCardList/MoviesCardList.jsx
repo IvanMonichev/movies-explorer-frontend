@@ -30,6 +30,7 @@ function MoviesCardList({
               name={movie.nameRU}
               duration={movie.duration}
               images={`https://api.nomoreparties.co${movie.image.url}`}
+              trailerLink={movie.trailerLink}
             />
           ))}
         </ul>
