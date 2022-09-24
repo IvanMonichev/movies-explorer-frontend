@@ -8,13 +8,63 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 function Movies() {
   const [loading, setLoading] = useState(true);
   const [noSearch, setNoSearch] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [shortMovies, setShortMovies] = useState([]);
   const [foundMovie, setFoundMovie] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [errorText, setErrorText] = useState('Что-то пошло не так');
   const [limit, setLimit] = useState(0);
   const [shortChecked, setShortChecked] = useState(false);
+
+  const handleShortFilter = (event) => {
+    setShortChecked(event.target.checked);
+    localStorage.setItem('savedChecked', event.target.checked);
+  };
+
+  // Получить корткометражки
+  const getShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
+
+  // Получить фильмы по запросу
+  const getFoundMovies = (preparedFilms, query) => {
+    return preparedFilms.filter((item) => {
+      const value = query.toLowerCase().trim();
+      const movieRu = item.nameRU.toLowerCase().trim();
+      const movieEn = item.nameEN.toLowerCase().trim();
+      return (movieRu.includes(value) || movieEn.includes(value)) && item;
+    });
+  };
+
+  // Поиск фильмов
+  const handleSearchSubmit = (query) => {
+    setNoSearch(false);
+    setLoading(true);
+    moviesApi.getMovies()
+      .then((movies) => {
+        if (shortChecked) {
+          setShortMovies(getShortMovies(movies));
+          console.log(shortMovies);
+          setFoundMovie(getFoundMovies(shortMovies, query));
+        } else {
+          setFoundMovie(getFoundMovies(movies, query));
+        }
+        console.log(foundMovie);
+
+        if (foundMovie.length === 0) {
+          setNotFound(true);
+          setErrorText('Ничего не найдено');
+          localStorage.setItem('savedMovies', JSON.stringify(foundMovie));
+        }
+        console.log(foundMovie);
+
+        localStorage.setItem('savedMovies', JSON.stringify(foundMovie));
+        setNotFound(false);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+        setErrorText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+      })
+      .finally(() => setLoading(false));
+  };
 
   const { width } = useWindowDimensions();
 
@@ -32,21 +82,7 @@ function Movies() {
   // Пагинация
   const addMovies = () => setLimit(limit * 2);
 
-  useEffect(() => {
-    setLoading(true);
-    moviesApi.getMovies()
-      .then((response) => {
-        setMovies(response);
-        setFilteredMovies(response);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-        setErrorText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
+/*
   useEffect(() => {
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     if (savedMovies) {
@@ -54,50 +90,16 @@ function Movies() {
       setFoundMovie(savedMovies);
     }
   }, []);
+*/
 
-  useEffect(() => {
+/*  useEffect(() => {
     if (localStorage.getItem('savedChecked') === 'true') {
       setShortChecked(true);
     } else {
       setShortChecked(false);
     }
-  }, []);
+  }, []);*/
 
-  const handleShortFilter = (event) => {
-    setShortChecked(event.target.checked);
-    localStorage.setItem('savedChecked', event.target.checked);
-  };
-
-  useEffect(() => {
-    if (shortChecked) {
-      const shortMovies = movies.filter((movie) => movie.duration <= 40);
-      setFilteredMovies(shortMovies);
-    } else {
-      setFilteredMovies(movies);
-    }
-  }, [shortChecked, movies]);
-
-  // Поиск фильмов
-  const handleSearchSubmit = (query) => {
-    setNoSearch(false);
-    const sortedMovie = filteredMovies.filter((item) => {
-      const value = query.toLowerCase().trim();
-      const movieRu = item.nameRU.toLowerCase().trim();
-      const movieEn = item.nameEN.toLowerCase().trim();
-      return (movieRu.includes(value) || movieEn.includes(value)) && item;
-    });
-
-    if (sortedMovie.length === 0) {
-      setNotFound(true);
-      setErrorText('Ничего не найдено');
-      localStorage.setItem('savedMovies', JSON.stringify(sortedMovie));
-      return;
-    }
-
-    localStorage.setItem('savedMovies', JSON.stringify(sortedMovie));
-    setNotFound(false);
-    setFoundMovie(sortedMovie);
-  };
 
   return (
     <>

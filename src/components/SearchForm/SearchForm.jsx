@@ -52,7 +52,7 @@ function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
             id="filter-checkbox"
             className="filter__checkbox"
             onChange={onHandleCheck}
-            checked={shortChecked}
+/*            checked={shortChecked}*/
           />
           Короткометражки
         </label>
