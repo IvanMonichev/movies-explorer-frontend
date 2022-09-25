@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
+function SearchForm({ onSearchSubmit, onHandleCheck }) {
   const [searchValue, setSearchValue] = useState('');
 
   const {
