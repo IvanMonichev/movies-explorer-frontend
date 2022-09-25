@@ -1,6 +1,6 @@
 import { BASE_URL } from './constants';
 
-class Api {
+class MainApi {
   constructor(configuration) {
     this._url = configuration.url;
     this._headers = configuration.headers;
@@ -17,7 +17,7 @@ class Api {
       credentials: 'include',
       body: JSON.stringify({ name, email, password }),
     })
-      .then(Api.errorHandle);
+      .then(MainApi.errorHandle);
   }
 
   loginUser(email, password) {
@@ -26,7 +26,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({ email, password }),
     })
-      .then(Api.errorHandle);
+      .then(MainApi.errorHandle);
   }
 
   logoutUser() {
@@ -35,7 +35,7 @@ class Api {
       headers: this._headers,
       credentials: 'include',
     })
-      .then(Api.errorHandle);
+      .then(MainApi.errorHandle);
   }
 
   getUserInfo() {
@@ -44,7 +44,7 @@ class Api {
       headers: this._headers,
       credentials: 'include',
     })
-      .then(Api.errorHandle);
+      .then(MainApi.errorHandle);
   }
 
   updateUser(name, email) {
@@ -54,7 +54,7 @@ class Api {
       credentials: 'include',
       body: JSON.stringify({ name, email }),
     })
-      .then(Api.errorHandle);
+      .then(MainApi.errorHandle);
   }
 
   getMovies() {
@@ -63,7 +63,7 @@ class Api {
       headers: this._headers,
       credentials: 'include',
     })
-      .then(Api.errorHandle);
+      .then(MainApi.errorHandle);
   }
 
   createMovie(movie) {
@@ -85,7 +85,7 @@ class Api {
         nameEN: movie.nameEN,
       }),
     })
-      .then(Api.errorHandle);
+      .then(MainApi.errorHandle);
   }
 
   deleteMovie(movieId) {
@@ -94,11 +94,11 @@ class Api {
       headers: this._headers,
       credentials: 'include',
     })
-      .then(Api.errorHandle);
+      .then(MainApi.errorHandle);
   }
 }
 
-const api = new Api({
+const mainApi = new MainApi({
   url: BASE_URL,
   headers: {
     Accept: 'application/json',
@@ -106,4 +106,4 @@ const api = new Api({
   },
 });
 
-export default api;
+export default mainApi;

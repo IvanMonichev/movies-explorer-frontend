@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import FormTemplate from '../FormTemplate/FormTemplate';
+import mainApi from '../../utils/MainApi';
 
 function Register() {
   const {
@@ -12,14 +13,19 @@ function Register() {
     handleSubmit,
     setFocus,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   useEffect(() => {
     setFocus('name');
   }, [setFocus]);
 
-  console.log(isValid);
+  const handleRegisterSubmit = ({ name, email, password }) => {
+    mainApi.createUser(name, email, password)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <FormTemplate
       titleHead="Регистрация"
@@ -29,7 +35,8 @@ function Register() {
       link="/sign-in"
       linkText="Войти"
       isValid={isValid}
-      onSubmit={handleSubmit}
+      onHandleSubmit={handleSubmit}
+      onSubmit={handleRegisterSubmit}
     >
       <label htmlFor="name" className="form-body__label">
         Имя
@@ -49,7 +56,7 @@ function Register() {
             },
             pattern: {
               value: /^[а-яА-Яa-zA-ZЁё\-\s]*$/,
-              message: 'Имя может содержать только из символы латиницы, символы кириллицы, пробел и дифис',
+              message: 'Имя может содержать только символы латиницы, символы кириллицы, пробел и дифис',
             },
           })}
         />
@@ -75,7 +82,7 @@ function Register() {
         Пароль
         <input
           type="password"
-          className={`form-body__input ${errors.email && 'form-body__input_error'}`}
+          className={`form-body__input ${errors.password && 'form-body__input_error'}`}
           id="password"
           {...register('password', {
             required: 'Нужно ввести пароль',

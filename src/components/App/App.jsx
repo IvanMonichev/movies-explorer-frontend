@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Components
@@ -10,19 +10,24 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageWrapper from '../PageWrapper/PageWrapper';
 import NotFound from '../NotFound/NotFound';
+import PrivateRoutes from '../../utils/PrivateRoute';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState();
+
   return (
     <Routes>
       <Route path="/" element={<PageWrapper />}>
         <Route index element={<Main />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/saved-movies" element={<SavedMovies />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoutes loggedIn={loggedIn} />}>
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/saved-movies" element={<SavedMovies />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Route>
-      <Route path="/sign-in" element={<Login />} />
+      <Route path="/sign-in" element={<Login onLoggedIn={setLoggedIn} />} />
       <Route path="/sign-up" element={<Register />} />
-      <Route path="/not-found" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
