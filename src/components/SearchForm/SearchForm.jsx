@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-function SearchForm({ onSearchSubmit, onHandleCheck }) {
+function SearchForm({ onSearchSubmit, onHandleCheck, shortChecked }) {
   const [searchValue, setSearchValue] = useState('');
 
   const {
@@ -52,7 +52,7 @@ function SearchForm({ onSearchSubmit, onHandleCheck }) {
             id="filter-checkbox"
             className="filter__checkbox"
             onChange={onHandleCheck}
-/*            checked={shortChecked}*/
+            checked={shortChecked}
           />
           Короткометражки
         </label>

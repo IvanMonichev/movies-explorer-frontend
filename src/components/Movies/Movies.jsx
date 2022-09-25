@@ -6,10 +6,9 @@ import moviesApi from '../../utils/MoviesApi';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 function Movies() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [noSearch, setNoSearch] = useState(true);
   const [allMovies, setAllMovies] = useState([]);
-  const [foundMovies, setFoundMovies] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [errorText, setErrorText] = useState('Что-то пошло не так');
@@ -19,38 +18,36 @@ function Movies() {
   const getShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
 
   useEffect(() => {
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    console.log(savedMovies);
-    if (savedMovies.length !== 0) {
-      setNoSearch(false);
-      setSearchResult(savedMovies);
+    if (localStorage.getItem('savedChecked') === 'true') {
+      setShortChecked(true);
+    } else {
+      setShortChecked(false);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('savedMovies', JSON.stringify(searchResult));
-  }, [searchResult]);
-
-  useEffect(() => {
-    console.log(searchResult.length);
     if (searchResult.length === 0) {
       setNotFound(true);
       setErrorText('Ничего не найдено');
     }
   }, [searchResult]);
 
+  // Повторный рендеринг
   useEffect(() => {
     setNotFound(false);
+    setNoSearch(false);
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+
     if (shortChecked) {
-      setSearchResult(getShortMovies(foundMovies));
+      setSearchResult(getShortMovies(savedMovies));
     } else {
-      setSearchResult(foundMovies);
+      setSearchResult(savedMovies);
     }
   }, [shortChecked]);
 
   const handleShortFilter = () => {
     setShortChecked(!shortChecked);
-    localStorage.setItem('savedChecked', shortChecked);
+    localStorage.setItem('savedChecked', !shortChecked);
   };
 
   const checkShortFilter = (movies) => {
@@ -69,7 +66,7 @@ function Movies() {
 
   const handleSortedMovies = (movies, query) => {
     const foundMovies = getFoundMovies(movies, query);
-    setFoundMovies(foundMovies);
+    localStorage.setItem('savedMovies', JSON.stringify(foundMovies));
     const checkedMovies = checkShortFilter(foundMovies);
     setSearchResult(checkedMovies);
   };
@@ -112,20 +109,13 @@ function Movies() {
   // Пагинация
   const addMovies = () => setLimit(limit * 2);
 
-  /*  useEffect(() => {
-      if (localStorage.getItem('savedChecked') === 'true') {
-        setShortChecked(true);
-      } else {
-        setShortChecked(false);
-      }
-    }, []);*/
-
   return (
     <>
       <HeadMain titleName="Фильмы" />
       <SearchForm
         onSearchSubmit={handleSearchSubmit}
         onHandleCheck={handleShortFilter}
+        shortChecked={shortChecked}
       />
       {!noSearch && (
         <MoviesCardList
