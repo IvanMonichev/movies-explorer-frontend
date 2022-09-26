@@ -13,7 +13,7 @@ import NotFound from '../NotFound/NotFound';
 import PrivateRoutes from '../../utils/PrivateRoute';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState();
+  const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <Routes>

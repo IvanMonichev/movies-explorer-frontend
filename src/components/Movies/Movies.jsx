@@ -34,14 +34,15 @@ function Movies() {
 
   // Повторный рендеринг
   useEffect(() => {
-    setNotFound(false);
-    setNoSearch(false);
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-
-    if (shortChecked) {
-      setSearchResult(getShortMovies(savedMovies));
-    } else {
-      setSearchResult(savedMovies);
+    if (savedMovies) {
+      setNotFound(false);
+      setNoSearch(false);
+      if (shortChecked) {
+        setSearchResult(getShortMovies(savedMovies));
+      } else {
+        setSearchResult(savedMovies);
+      }
     }
   }, [shortChecked]);
 
