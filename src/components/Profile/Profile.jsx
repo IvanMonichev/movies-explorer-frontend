@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import HeadMain from '../HeadMain/HeadMain';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile() {
+  const currentUser = useContext(CurrentUserContext);
+/*  const [activeForm, setActiveForm] = useState(false);
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);*/
+
   return (
     <>
       <HeadMain titleName="Мой профиль" />
       <section className="form form-profile">
         <div className="form__wrapper form-profile__wrapper">
-          <h1 className="form__title form-profile__title">Привет, Виталий!</h1>
+          <h1 className="form__title form-profile__title">{`Привет, ${currentUser.name}!`}</h1>
           <form className="form-body register__form">
             <label htmlFor="name" className="form-body__label form-profile__label">
               Имя
@@ -16,6 +22,7 @@ function Profile() {
                 className="form-body__input form-profile__input form-profile__input_separate"
                 name="name"
                 id="name"
+                defaultValue={currentUser.name || ''}
                 required
               />
               <span className="form-body__error">Что-то пошло не так...</span>
@@ -27,6 +34,7 @@ function Profile() {
                 className="form-body__input form-profile__input"
                 name="email"
                 id="email"
+                defaultValue={currentUser.email || ''}
                 required
               />
               <span className="form-body__error">Что-то пошло не так...</span>

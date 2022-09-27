@@ -33,7 +33,12 @@ function Login({ onLoggedIn }) {
         navigate('/movies');
       })
       .catch((error) => {
-        error.json().then((text) => setSubmitError(text.message));
+        console.log(error.status);
+        if (error.status === 401) {
+          setSubmitError('Вы ввели неправильный логин или пароль.');
+          return;
+        }
+        setSubmitError('На сервере произошла ошибка.');
       });
   };
 
