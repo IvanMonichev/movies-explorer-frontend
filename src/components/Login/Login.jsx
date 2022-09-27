@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import FormTemplate from '../FormTemplate/FormTemplate';
 import mainApi from '../../utils/MainApi';
 
 function Login({ onLoggedIn }) {
+  const [submitError, setSubmitError] = useState('');
+
   const {
     register,
     formState: {
@@ -27,9 +29,12 @@ function Login({ onLoggedIn }) {
     mainApi.loginUser(email, password)
       .then(() => {
         onLoggedIn(true);
+        setSubmitError('');
         navigate('/movies');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        error.json().then((text) => setSubmitError(text.message));
+      });
   };
 
   return (
@@ -43,6 +48,7 @@ function Login({ onLoggedIn }) {
       isValid={isValid}
       onHandleSubmit={handleSubmit}
       onSubmit={handleLoginSubmit}
+      submitError={submitError}
     >
       <label htmlFor="email" className="form-body__label">
         E-mail
