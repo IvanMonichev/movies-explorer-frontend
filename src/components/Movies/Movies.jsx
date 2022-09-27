@@ -110,6 +110,10 @@ function Movies() {
   // Пагинация
   const addMovies = () => setLimit(limit * 2);
 
+  const handleSaveMovie = (dataMovie) => {
+    console.log(dataMovie);
+  };
+
   return (
     <>
       <HeadMain titleName="Фильмы" />
@@ -126,6 +130,7 @@ function Movies() {
           errorText={errorText}
           limit={limit}
           onAddFilms={addMovies}
+          onSave={handleSaveMovie}
         />
       )}
     </>

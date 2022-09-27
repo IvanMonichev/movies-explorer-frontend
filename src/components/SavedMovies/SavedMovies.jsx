@@ -4,11 +4,15 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import HeadMain from '../HeadMain/HeadMain';
 
 function SavedMovies() {
+  // const [savedMovies, setSavedMovies] = useState([]);
+
   return (
     <>
       <HeadMain titleName="Сохранённые фильмы" />
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList
+        movies={[]}
+      />
     </>
   );
 }

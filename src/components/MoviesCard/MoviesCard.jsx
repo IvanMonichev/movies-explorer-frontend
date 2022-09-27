@@ -6,11 +6,14 @@ function MoviesCard({
   duration,
   images,
   trailerLink,
+  movie,
+  onSave,
 }) {
   const [saved, setSaved] = useState(false);
 
   const handleSaved = () => {
     setSaved(!saved);
+    onSave(movie);
   };
 
   const convertDuration = (value) => {
@@ -24,8 +27,17 @@ function MoviesCard({
       <div className="movies-content__content">
         <h2 className="movies-list__name"><a className="movies-list__link" href={trailerLink} target="_blank" rel="noreferrer">{name}</a></h2>
         <p className="movies-list__duration">{convertDuration(duration)}</p>
-        {useLocation().pathname === '/movies'
-          && <button onClick={handleSaved} type="button" className={`movies-list__save ${saved && 'movies-list__save_active'}`} aria-label="save-film" />}
+        {
+          useLocation().pathname === '/movies'
+          && (
+          <button
+            onClick={handleSaved}
+            type="button"
+            className={`movies-list__save ${saved && 'movies-list__save_active'}`}
+            aria-label="save-film"
+          />
+          )
+        }
         {useLocation().pathname === '/saved-movies'
           && <button type="button" className="movies-list__delete" aria-label="save-film" />}
       </div>
