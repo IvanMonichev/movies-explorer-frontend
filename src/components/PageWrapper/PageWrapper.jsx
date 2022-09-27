@@ -4,13 +4,15 @@ import HeadMain from '../HeadMain/HeadMain';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-function PageWrapper() {
+function PageWrapper({ loggedIn }) {
   return (
     <>
       <HeadMain
         titleName="Movies Express | О проекте"
       />
-      <Header />
+      <Header
+        loggedIn={loggedIn}
+      />
       <main className="main">
         <Outlet />
       </main>

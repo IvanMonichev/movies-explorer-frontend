@@ -19,11 +19,10 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('test');
     mainApi.getUserInfo()
       .then((data) => {
         setLoggedIn(true);
-        console.log(data);
+        navigate('/');
         setCurrentUser(data);
       })
       .catch((error) => {
@@ -35,12 +34,12 @@ function App() {
           console.log(`${error.status} – ${error.statusText}`);
         }
       });
-  }, [navigate]);
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
-        <Route path="/" element={<PageWrapper />}>
+        <Route path="/" element={<PageWrapper loggedIn={loggedIn} />}>
           <Route index element={<Main />} />
           <Route element={<PrivateRoutes loggedIn={loggedIn} />}>
             <Route path="/movies" element={<Movies />} />
