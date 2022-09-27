@@ -48,6 +48,10 @@
   transition: border-color 0.7s;
 }
 
+.form-body__input:disabled {
+  background: none;
+}
+
 .form-body__input:focus-visible {
   border-bottom: 1px solid #3456f3;
   outline: none;
