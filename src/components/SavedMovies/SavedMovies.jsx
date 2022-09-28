@@ -3,15 +3,14 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import HeadMain from '../HeadMain/HeadMain';
 
-function SavedMovies() {
-  // const [savedMovies, setSavedMovies] = useState([]);
-
+function SavedMovies({ savedMovies, onDelete }) {
   return (
     <>
       <HeadMain titleName="Сохранённые фильмы" />
       <SearchForm />
       <MoviesCardList
-        movies={[]}
+        movies={savedMovies}
+        onDelete={onDelete}
       />
     </>
   );
