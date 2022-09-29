@@ -20,7 +20,7 @@
     "start": "react-scripts start",
     "lint:js": "npx eslint .",
     "lint:css": "npx stylelint \"**/*.{css,js}\"",
-    "build": "react-scripts build",
+    "build": "react-scripts build && scp -r ./build/* monichev@51.250.68.212:/home/monichev/movies-explorer/frontend",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

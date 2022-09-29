@@ -30,6 +30,7 @@ function Register({ onRegisterSubmit, submitError }) {
       isValid={isValid}
       onHandleSubmit={handleSubmit}
       onSubmit={onRegisterSubmit}
+      // 'useState' is not defined  no-undef
       submitError={submitError}
     >
       <label htmlFor="name" className="form-body__label">

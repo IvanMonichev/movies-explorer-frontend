@@ -19,7 +19,7 @@ function NavTab() {
       <nav className={`menu header__menu-navigation ${isOpenMenu && 'header__menu-navigation_is-active'}`}>
         <ul className="menu__list header__list-navigation">
           <li className="menu__item header__item-navigation header__item-navigation_inactive">
-            <NavLink to="/" className={setActive}>
+            <NavLink to="/" className={setActive} onClick={handleBurgerClick}>
               Главная
             </NavLink>
           </li>

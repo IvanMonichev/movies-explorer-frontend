@@ -38,6 +38,7 @@ function App() {
     setSearchValue(localStorage.getItem('searchValue'));
   }, []);
 
+  // Получение доступа
   const getAccess = () => {
     mainApi.getUserInfo()
       .then((data) => {
@@ -77,7 +78,9 @@ function App() {
   };
 
   const handleLogout = () => {
-    mainApi.logoutUser();
+    mainApi.logoutUser()
+      .then()
+      .catch((error) => console.log(error));
     localStorage.clear();
     setLoggedIn(false);
     setCurrentUser([]);
