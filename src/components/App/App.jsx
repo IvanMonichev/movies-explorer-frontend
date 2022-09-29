@@ -64,11 +64,11 @@ function App() {
 
   // Отрисовка отрицательного результата при поиске фильмов
   useEffect(() => {
-    if (searchResult.length === 0) {
+    if (searchResult.length === 0 || searchSavedResult.length === 0) {
       setNotFound(true);
       setErrorText('Ничего не найдено');
     }
-  }, [searchResult]);
+  }, [searchResult, searchSavedResult]);
 
   // Повторный рендеринг
   useEffect(() => {
@@ -84,9 +84,7 @@ function App() {
     }
   }, [shortChecked]);
 
-  console.log(searchSavedResult);
   const handleSavedShortFilter = () => {
-    console.log(!shortChecked);
     if (!shortChecked) {
       setSearchSavedResult(getShortMovies(searchSavedResult));
     } else if (foundSavedMovies.length === 0) {
@@ -154,10 +152,6 @@ function App() {
     setNotFound(false);
     const foundSavedMovies = getFoundMovies(savedMovies, query);
     const checkedSavedMovies = checkShortFilter(foundSavedMovies);
-    if (checkedSavedMovies.length === 0) {
-      setNotFound(true);
-      setErrorText('Ничего не найдено');
-    }
     setFoundSavedMovies(foundSavedMovies);
     setSearchSavedResult(checkedSavedMovies);
   };
