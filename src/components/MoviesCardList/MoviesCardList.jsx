@@ -21,7 +21,6 @@ function MoviesCardList({
   }
 
   if (notFound) {
-    console.log('work');
     return <InfoTooltip errorText={errorText} isError={isError} />;
   }
 

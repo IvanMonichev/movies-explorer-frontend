@@ -38,11 +38,34 @@ function App() {
     setSearchValue(localStorage.getItem('searchValue'));
   }, []);
 
+  const getAccess = () => {
+    mainApi.getUserInfo()
+      .then((data) => {
+        setLoggedIn(true);
+        navigate('/');
+        setCurrentUser(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        if (error === 400) {
+          console.log('400 - токен не передан или передан не в том формате');
+        } else if (error === 401) {
+          console.log('401 - переданный токен некорректен');
+        } else {
+          console.log(`${error.status} – ${error.statusText}`);
+        }
+      });
+  };
+
+  useEffect(getAccess, []);
+
   const handleLoginSubmit = ({ email, password }) => {
     mainApi.loginUser(email, password)
       .then(() => {
         setLoggedIn(true);
         setSubmitError('');
+        navigate('/movies');
+        getAccess();
       })
       .catch((error) => {
         console.log(error.status);
@@ -56,6 +79,7 @@ function App() {
 
   const handleLogout = () => {
     mainApi.logoutUser();
+    localStorage.clear();
     setLoggedIn(false);
     setCurrentUser([]);
     setSearchResult([]);
@@ -64,26 +88,6 @@ function App() {
     setFoundSavedMovies([]);
     setSearchSavedResult([]);
   };
-
-  // Получение информации о пользователе, проверка доступа.
-  useEffect(() => {
-    mainApi.getUserInfo()
-      .then((data) => {
-        setLoggedIn(true);
-        navigate('/movies');
-        setCurrentUser(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        if (error === 400) {
-          console.log('400 - токен не передан или передан не в том формате');
-        } else if (error === 401) {
-          console.log('401 - переданный токен некорректен');
-        } else {
-          console.log(`${error.status} – ${error.statusText}`);
-        }
-      });
-  }, [loggedIn]);
 
   const getShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
 
@@ -231,19 +235,18 @@ function App() {
 
   // Отрисовка сохранённых фильмов
   useEffect(() => {
-    console.log(loggedIn);
     if (loggedIn) {
       setLoading(true);
       mainApi.getMovies()
         .then((response) => {
-          console.log(response);
-          setSavedMovies(response);
-          setSearchSavedResult(response);
+          const userSavedMovies = response.filter((item) => item.owner === currentUser._id);
+          setSavedMovies(userSavedMovies);
+          setSearchSavedResult(userSavedMovies);
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
-  }, []);
+  }, [currentUser]);
 
   // Пагинация
   const addMovies = () => setLimit(limit * 2);
