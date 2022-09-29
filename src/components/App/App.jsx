@@ -17,9 +17,11 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(false);
   const [noSearch, setNoSearch] = useState(true);
+  const [searchValue, setSearchValue] = useState('');
   const [allMovies, setAllMovies] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -32,13 +34,45 @@ function App() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
 
+  useEffect(() => {
+    setSearchValue(localStorage.getItem('searchValue'));
+  }, []);
+
+  const handleLoginSubmit = ({ email, password }) => {
+    mainApi.loginUser(email, password)
+      .then(() => {
+        setLoggedIn(true);
+        setSubmitError('');
+      })
+      .catch((error) => {
+        console.log(error.status);
+        if (error.status === 401 || 404) {
+          setSubmitError('Вы ввели неправильный логин или пароль.');
+        } else {
+          setSubmitError('На сервере произошла ошибка.');
+        }
+      });
+  };
+
+  const handleLogout = () => {
+    mainApi.logoutUser();
+    setLoggedIn(false);
+    setCurrentUser([]);
+    setSearchResult([]);
+    setSearchValue('');
+    setSavedMovies([]);
+    setFoundSavedMovies([]);
+    setSearchSavedResult([]);
+  };
+
   // Получение информации о пользователе, проверка доступа.
   useEffect(() => {
     mainApi.getUserInfo()
       .then((data) => {
         setLoggedIn(true);
-        navigate('/');
+        navigate('/movies');
         setCurrentUser(data);
+        console.log(data);
       })
       .catch((error) => {
         if (error === 400) {
@@ -49,7 +83,7 @@ function App() {
           console.log(`${error.status} – ${error.statusText}`);
         }
       });
-  }, []);
+  }, [loggedIn]);
 
   const getShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
 
@@ -64,11 +98,22 @@ function App() {
 
   // Отрисовка отрицательного результата при поиске фильмов
   useEffect(() => {
-    if (searchResult.length === 0 || searchSavedResult.length === 0) {
+    if (searchResult.length === 0) {
       setNotFound(true);
       setErrorText('Ничего не найдено');
     }
-  }, [searchResult, searchSavedResult]);
+  }, [searchResult]);
+
+  useEffect(() => {
+    if (setSearchSavedResult.length === 0) {
+      setNotFound(true);
+      setErrorText('Ничего не найдено');
+    }
+  }, [searchSavedResult]);
+
+  useEffect(() => {
+    setNotFound(false);
+  }, [navigate]);
 
   // Повторный рендеринг
   useEffect(() => {
@@ -186,14 +231,18 @@ function App() {
 
   // Отрисовка сохранённых фильмов
   useEffect(() => {
-    setLoading(true);
-    mainApi.getMovies()
-      .then((response) => {
-        setSavedMovies(response);
-        setSearchSavedResult(response);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
+    console.log(loggedIn);
+    if (loggedIn) {
+      setLoading(true);
+      mainApi.getMovies()
+        .then((response) => {
+          console.log(response);
+          setSavedMovies(response);
+          setSearchSavedResult(response);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
+    }
   }, []);
 
   // Пагинация
@@ -232,6 +281,8 @@ function App() {
                   onAddFilms={addMovies}
                   onSave={handleSaveMovie}
                   savedMovies={savedMovies}
+                  onSearchValue={setSearchValue}
+                  searchValue={searchValue}
                 />
             )}
             />
@@ -246,13 +297,14 @@ function App() {
                   shortChecked={shortChecked}
                   notFound={notFound}
                   errorText={errorText}
+                  onSearchValue={setSearchValue}
                 />
               )}
             />
-            <Route path="/profile" element={<Profile onCurrentUser={setCurrentUser} onLoggedIn={setLoggedIn} />} />
+            <Route path="/profile" element={<Profile onCurrentUser={setCurrentUser} onLoggedIn={setLoggedIn} onLogout={handleLogout} />} />
           </Route>
         </Route>
-        <Route path="/sign-in" element={<Login onLoggedIn={setLoggedIn} />} />
+        <Route path="/sign-in" element={<Login onLoginSubmit={handleLoginSubmit} submitError={submitError} />} />
         <Route path="/sign-up" element={<Register onLoggedIn={setLoggedIn} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

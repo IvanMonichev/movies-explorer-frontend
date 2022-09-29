@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import HeadMain from '../HeadMain/HeadMain';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 
-function Profile({ onCurrentUser, onLoggedIn }) {
+function Profile({ onCurrentUser, onLogout }) {
   const { name, email } = useContext(CurrentUserContext);
   const [activeForm, setActiveForm] = useState(false);
   const [newName, setNewName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
   const [isValid, setIsValid] = useState(false);
-  const navigate = useNavigate();
 
   const {
     register,
@@ -52,12 +50,6 @@ function Profile({ onCurrentUser, onLoggedIn }) {
         console.log(error);
       })
       .finally(() => handleActiveForm());
-  };
-
-  const handleLogout = () => {
-    mainApi.logoutUser();
-    onLoggedIn(false);
-    navigate('/');
   };
 
   return (
@@ -126,7 +118,7 @@ function Profile({ onCurrentUser, onLoggedIn }) {
               : (
                 <>
                   <button type="button" className="form-profile__text form-profile__text_separator" onClick={handleActiveForm}>Редактировать</button>
-                  <button type="button" className="form-profile__text form-profile__text_important" onClick={handleLogout}>Выйти из аккаунта</button>
+                  <button type="button" className="form-profile__text form-profile__text_important" onClick={onLogout}>Выйти из аккаунта</button>
                 </>
               )}
           </form>
