@@ -4,7 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import HeadMain from '../HeadMain/HeadMain';
 
 function SavedMovies({
-  savedMovies, onDelete, onSearchSubmit, shortChecked, onHandleCheck, notFound,
+  savedMovies, onDelete, onSearchSubmit, shortChecked, onHandleCheck, notFound, errorText,
 }) {
   return (
     <>
@@ -18,6 +18,7 @@ function SavedMovies({
         movies={savedMovies}
         onDelete={onDelete}
         notFound={notFound}
+        errorText={errorText}
       />
     </>
   );

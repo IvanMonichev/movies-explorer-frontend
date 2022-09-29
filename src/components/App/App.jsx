@@ -23,6 +23,8 @@ function App() {
   const [allMovies, setAllMovies] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [foundSavedMovies, setFoundSavedMovies] = useState([]);
+  const [searchSavedResult, setSearchSavedResult] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [errorText, setErrorText] = useState('Что-то пошло не так');
   const [limit, setLimit] = useState(0);
@@ -51,7 +53,7 @@ function App() {
 
   const getShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
 
-  // Установка чекбокса при загрузки страницы
+  // Установка чекбокса при загрузке страницы
   useEffect(() => {
     if (localStorage.getItem('savedChecked') === 'true') {
       setShortChecked(true);
@@ -70,27 +72,40 @@ function App() {
 
   // Повторный рендеринг
   useEffect(() => {
-    console.log('work');
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    if (savedMovies) {
+    const foundMovies = JSON.parse(localStorage.getItem('foundMovies'));
+    if (foundMovies) {
       setNotFound(false);
       setNoSearch(false);
       if (shortChecked) {
-        setSearchResult(getShortMovies(savedMovies));
+        setSearchResult(getShortMovies(foundMovies));
       } else {
-        setSearchResult(savedMovies);
+        setSearchResult(foundMovies);
       }
     }
   }, [shortChecked]);
+
+  console.log(searchSavedResult);
+  const handleSavedShortFilter = () => {
+    console.log(!shortChecked);
+    if (!shortChecked) {
+      setSearchSavedResult(getShortMovies(searchSavedResult));
+    } else if (foundSavedMovies.length === 0) {
+      setSearchSavedResult(savedMovies);
+    } else {
+      setSearchSavedResult(foundSavedMovies);
+    }
+  };
 
   // Установка фильтра
   const handleShortFilter = () => {
     setShortChecked(!shortChecked);
     localStorage.setItem('savedChecked', !shortChecked);
+    handleSavedShortFilter();
   };
 
   // Проверка списка фильма по чекбоксу
   const checkShortFilter = (movies) => {
+    console.log(shortChecked);
     if (shortChecked) {
       return getShortMovies(movies);
     }
@@ -108,7 +123,7 @@ function App() {
   // Сохранение отфильтрованного списка фильмов
   const handleSortedMovies = (movies, query) => {
     const foundMovies = getFoundMovies(movies, query);
-    localStorage.setItem('savedMovies', JSON.stringify(foundMovies));
+    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
     const checkedMovies = checkShortFilter(foundMovies);
     setSearchResult(checkedMovies);
   };
@@ -136,9 +151,15 @@ function App() {
   };
 
   const handleSavedSearchSubmit = (query) => {
+    setNotFound(false);
     const foundSavedMovies = getFoundMovies(savedMovies, query);
     const checkedSavedMovies = checkShortFilter(foundSavedMovies);
-    setSavedMovies(checkedSavedMovies);
+    if (checkedSavedMovies.length === 0) {
+      setNotFound(true);
+      setErrorText('Ничего не найдено');
+    }
+    setFoundSavedMovies(foundSavedMovies);
+    setSearchSavedResult(checkedSavedMovies);
   };
 
   // Удаление фильма из списка сохранённых
@@ -146,6 +167,8 @@ function App() {
     mainApi.deleteMovie(dataMovie._id)
       .then(() => {
         setSavedMovies(savedMovies.filter((item) => item.movieId !== dataMovie.movieId));
+        setSearchSavedResult(searchSavedResult
+          .filter((item) => item.movieId !== dataMovie.movieId));
       })
       .catch((error) => console.log(error));
   };
@@ -162,6 +185,7 @@ function App() {
     mainApi.createMovie(dataMovie)
       .then((response) => {
         setSavedMovies([...savedMovies, response]);
+        setSearchSavedResult([...searchSavedResult, response]);
       })
       .catch((error) => console.log(error));
   };
@@ -172,6 +196,7 @@ function App() {
     mainApi.getMovies()
       .then((response) => {
         setSavedMovies(response);
+        setSearchSavedResult(response);
       })
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
@@ -222,10 +247,11 @@ function App() {
                 <SavedMovies
                   onSearchSubmit={handleSavedSearchSubmit}
                   onHandleCheck={handleShortFilter}
-                  savedMovies={savedMovies}
+                  savedMovies={searchSavedResult}
                   onDelete={handleDeleteMovie}
                   shortChecked={shortChecked}
                   notFound={notFound}
+                  errorText={errorText}
                 />
               )}
             />
