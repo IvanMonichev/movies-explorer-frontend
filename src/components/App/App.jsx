@@ -70,6 +70,7 @@ function App() {
 
   // Повторный рендеринг
   useEffect(() => {
+    console.log('work');
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     if (savedMovies) {
       setNotFound(false);
@@ -134,6 +135,12 @@ function App() {
     }
   };
 
+  const handleSavedSearchSubmit = (query) => {
+    const foundSavedMovies = getFoundMovies(savedMovies, query);
+    const checkedSavedMovies = checkShortFilter(foundSavedMovies);
+    setSavedMovies(checkedSavedMovies);
+  };
+
   // Удаление фильма из списка сохранённых
   const handleDeleteMovie = (dataMovie) => {
     mainApi.deleteMovie(dataMovie._id)
@@ -145,7 +152,6 @@ function App() {
 
   // Добавить фильм в список сохранённые или удалить уже сохранённый
   const handleSaveMovie = (dataMovie) => {
-    console.log(dataMovie);
     const isSaved = savedMovies.some((item) => item.movieId === dataMovie.id);
     if (isSaved) {
       const savedMovie = savedMovies.find((item) => item.movieId === dataMovie.id);
@@ -165,7 +171,6 @@ function App() {
     setLoading(true);
     mainApi.getMovies()
       .then((response) => {
-        console.log(response);
         setSavedMovies(response);
       })
       .catch((error) => console.log(error))
@@ -215,8 +220,12 @@ function App() {
               path="/saved-movies"
               element={(
                 <SavedMovies
+                  onSearchSubmit={handleSavedSearchSubmit}
+                  onHandleCheck={handleShortFilter}
                   savedMovies={savedMovies}
                   onDelete={handleDeleteMovie}
+                  shortChecked={shortChecked}
+                  notFound={notFound}
                 />
               )}
             />
