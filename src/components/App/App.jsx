@@ -44,7 +44,6 @@ function App() {
         setLoggedIn(true);
         navigate('/');
         setCurrentUser(data);
-        console.log(data);
       })
       .catch((error) => {
         if (error === 400) {
@@ -87,6 +86,22 @@ function App() {
     setSavedMovies([]);
     setFoundSavedMovies([]);
     setSearchSavedResult([]);
+  };
+
+  const handleRegisterSubmit = ({ name, email, password }) => {
+    mainApi.createUser(name, email, password)
+      .then(() => {
+        setSubmitError('');
+        handleLoginSubmit({ email, password });
+      })
+      .catch((error) => {
+        console.log(error.status);
+        if (error.status === 409) {
+          setSubmitError('Пользователь с таким email уже существует.');
+          return;
+        }
+        setSubmitError('На сервере произошла ошибка.');
+      });
   };
 
   const getShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
@@ -152,7 +167,6 @@ function App() {
 
   // Проверка списка фильма по чекбоксу
   const checkShortFilter = (movies) => {
-    console.log(shortChecked);
     if (shortChecked) {
       return getShortMovies(movies);
     }
@@ -308,7 +322,7 @@ function App() {
           </Route>
         </Route>
         <Route path="/sign-in" element={<Login onLoginSubmit={handleLoginSubmit} submitError={submitError} />} />
-        <Route path="/sign-up" element={<Register onLoggedIn={setLoggedIn} />} />
+        <Route path="/sign-up" element={<Register onRegisterSubmit={handleRegisterSubmit} submitError={submitError} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </CurrentUserContext.Provider>
