@@ -65,7 +65,6 @@ function App() {
         setLoggedIn(true);
         setSubmitError('');
         navigate('/movies');
-        getAccess();
       })
       .catch((error) => {
         console.log(error.status);
@@ -74,7 +73,8 @@ function App() {
         } else {
           setSubmitError('На сервере произошла ошибка.');
         }
-      });
+      })
+      .finally(getAccess);
   };
 
   const handleLogout = () => {
