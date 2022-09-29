@@ -35,7 +35,7 @@ function NavTab() {
           </li>
         </ul>
       </nav>
-      <Link to="/profile" className={`profile header__profile ${isOpenMenu && 'header__profile_is-active'}`}>
+      <Link to="/profile" className={`profile header__profile ${isOpenMenu && 'header__profile_is-active'}`} onClick={handleBurgerClick}>
         <p className="profile__name">Аккаунт</p>
         <div className="profile__avatar" />
       </Link>

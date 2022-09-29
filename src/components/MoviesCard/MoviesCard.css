@@ -100,10 +100,13 @@
     height: auto;
   }
 
-  .movies__image {
+  .movies__image-container {
     max-width: 520px;
-    height: 240px;
     grid-row: 1;
+  }
+
+  .movies__image {
+    height: 240px;
     padding: 0;
   }
 
@@ -125,6 +128,11 @@
   }
 
   .movies-list__save {
+    grid-column: -1 / -2;
+    grid-row: 1;
+  }
+
+  .movies-list__delete {
     grid-column: -1 / -2;
     grid-row: 1;
   }
