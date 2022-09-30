@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 
 function SearchForm(
   {
@@ -8,13 +9,18 @@ function SearchForm(
     shortChecked,
     onSearchValue,
     searchValue,
+    onHandleSavedMovieCheck,
   },
 ) {
+  const pathName = useLocation().pathname;
   const handleSearchSubmit = (data) => {
     onSearchSubmit(data.search);
-    localStorage.setItem('searchValue', data.search);
-    onSearchValue(data.search);
+    if (pathName === '/movies') {
+      onSearchValue(data.search);
+    }
   };
+
+  const onCheck = () => (pathName === '/movies' ? onHandleCheck() : onHandleSavedMovieCheck());
 
   const {
     register,
@@ -53,7 +59,7 @@ function SearchForm(
             type="checkbox"
             id="filter-checkbox"
             className="filter__checkbox"
-            onChange={onHandleCheck}
+            onChange={onCheck}
             checked={shortChecked}
           />
           Короткометражки

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import {
+  Routes, Route, useNavigate, useLocation,
+} from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 // Components
 import Main from '../Main/main';
@@ -31,8 +33,12 @@ function App() {
   const [errorText, setErrorText] = useState('Что-то пошло не так');
   const [limit, setLimit] = useState(0);
   const [shortChecked, setShortChecked] = useState(false);
+  const [savedMovieCheck, setSavedMovieCheck] = useState(false);
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
+  const pathName = useLocation().pathname;
+
+  // === ПОЛЬЗОВАТЕЛЬ ===
 
   // Получение доступа
   const getAccess = () => {
@@ -59,6 +65,7 @@ function App() {
     mainApi.loginUser(email, password)
       .then(() => {
         setLoggedIn(true);
+        getAccess();
         setSubmitError('');
         navigate('/movies');
       })
@@ -69,8 +76,7 @@ function App() {
         } else {
           setSubmitError('На сервере произошла ошибка.');
         }
-      })
-      .finally(getAccess);
+      });
   };
 
   const handleLogout = () => {
@@ -81,7 +87,9 @@ function App() {
     setLoggedIn(false);
     setCurrentUser([]);
     setSearchResult([]);
+    setAllMovies([]);
     setSearchValue('');
+    setShortChecked(false);
     setSavedMovies([]);
     setFoundSavedMovies([]);
     setSearchSavedResult([]);
@@ -103,76 +111,10 @@ function App() {
       });
   };
 
+  // === ФИЛЬМЫ ===
+
+  // Фильтрация по чекбокусу фильмов
   const getShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
-
-  // Отрисовка отрицательного результата при поиске фильмов
-  useEffect(() => {
-    if (searchResult.length === 0) {
-      setNotFound(true);
-      setErrorText('Ничего не найдено');
-    }
-  }, [searchResult]);
-
-  useEffect(() => {
-    if (setSearchSavedResult.length === 0) {
-      setNotFound(true);
-      setErrorText('Ничего не найдено');
-    }
-  }, [searchSavedResult]);
-
-  useEffect(() => {
-    setNotFound(false);
-  }, [navigate]);
-
-  // Повторный рендеринг
-
-  /*
-
-*/
-
-  const handleSavedShortFilter = () => {
-    if (!shortChecked) {
-      setSearchSavedResult(getShortMovies(searchSavedResult));
-    } else if (foundSavedMovies.length === 0) {
-      setSearchSavedResult(savedMovies);
-    } else {
-      setSearchSavedResult(foundSavedMovies);
-    }
-  };
-
-  // Рендеринг после обновления.
-  useEffect(() => {
-    const searchLocalResult = JSON.parse(localStorage.getItem('searchResult'));
-    if (searchLocalResult.length !== 0) {
-      setNoSearch(false);
-      setSearchResult(searchLocalResult);
-    }
-    setSearchValue(localStorage.getItem('searchValue'));
-    if (localStorage.getItem('savedChecked') === 'true') {
-      setShortChecked(true);
-    } else {
-      setShortChecked(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    const foundLocalMovies = JSON.parse(localStorage.getItem('foundMovies'));
-    console.log(foundLocalMovies);
-    if (foundLocalMovies) {
-      setNotFound(false);
-      setNoSearch(false);
-      if (shortChecked) {
-        setSearchResult(getShortMovies(foundLocalMovies));
-      } else {
-        setSearchResult(foundLocalMovies);
-      }
-    }
-  }, [shortChecked]);
-
-  // Сохранение результата.
-  useEffect(() => {
-    localStorage.setItem('searchResult', JSON.stringify(searchResult));
-  }, [searchResult, shortChecked]);
 
   // Установка фильтра
   const handleShortFilter = () => {
@@ -196,17 +138,19 @@ function App() {
     return (movieRu.includes(value) || movieEn.includes(value)) && item;
   });
 
+  // Получение результата по заданным параметрам
   const handleSortedMovies = (movies, query) => {
     const foundMovies = getFoundMovies(movies, query);
     const checkedMovies = checkShortFilter(foundMovies);
     localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+    localStorage.setItem('savedChecked', shortChecked);
     setSearchResult(checkedMovies);
   };
 
   // Поиск фильмов
   const handleSearchSubmit = (query) => {
+    localStorage.setItem('searchValue', query);
     setNoSearch(false);
-    setNotFound(false);
     if (allMovies.length === 0) {
       setLoading(true);
       moviesApi.getMovies()
@@ -224,6 +168,55 @@ function App() {
       handleSortedMovies(allMovies, query);
     }
   };
+
+  // Отрисовка отрицательного результата при поиске фильмов
+  useEffect(() => {
+    if (pathName === '/movies') {
+      if (searchResult.length === 0) {
+        setNotFound(true);
+        setErrorText('Ничего не найдено');
+      } else {
+        setNotFound(false);
+      }
+    }
+  }, [searchResult, navigate]);
+
+  // Рендеринг после обновления.
+  useEffect(() => {
+    if (pathName === '/movies') {
+      const searchLocalResult = JSON.parse(localStorage.getItem('searchResult'));
+      setSearchResult(searchLocalResult);
+      setSearchValue(localStorage.getItem('searchValue'));
+      if (localStorage.getItem('savedChecked') === 'true') {
+        setShortChecked(true);
+      } else {
+        setShortChecked(false);
+      }
+    }
+  }, [navigate]);
+
+  // Рендеринг фильмов после чекбоксов
+  useEffect(() => {
+    const foundLocalMovies = JSON.parse(localStorage.getItem('foundMovies'));
+    if (foundLocalMovies) {
+      setNotFound(false);
+      setNoSearch(false);
+      if (shortChecked) {
+        setSearchResult(getShortMovies(foundLocalMovies));
+      } else {
+        setSearchResult(foundLocalMovies);
+      }
+    }
+  }, [shortChecked]);
+
+  // Сохранение результата в локальное хранилище
+  useEffect(() => {
+    if (loggedIn) {
+      localStorage.setItem('searchResult', JSON.stringify(searchResult));
+    }
+  }, [searchResult]);
+
+  // === СОХРАНЁННЫЕ ФИЛЬМЫ ===
 
   const handleSavedSearchSubmit = (query) => {
     setNotFound(false);
@@ -261,10 +254,16 @@ function App() {
       .catch((error) => console.log(error));
   };
 
+  const handleSavedMovieCheck = () => {
+    setSavedMovieCheck(!savedMovieCheck);
+  };
+
   // Отрисовка сохранённых фильмов
   useEffect(() => {
-    if (loggedIn) {
+    if (pathName === '/saved-movies') {
       setLoading(true);
+      setNotFound(false);
+      setSavedMovieCheck(false);
       mainApi.getMovies()
         .then((response) => {
           const userSavedMovies = response.filter((item) => item.owner === currentUser._id);
@@ -274,9 +273,31 @@ function App() {
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
-  }, [currentUser]);
+  }, [navigate]);
 
-  // Пагинация
+  useEffect(() => {
+    if (pathName === '/saved-movies') {
+      if (searchSavedResult.length === 0) {
+        setNotFound(true);
+        setErrorText('Ничего не найдено');
+      } else {
+        setNotFound(false);
+      }
+    }
+  }, [searchSavedResult]);
+
+  useEffect(() => {
+    if (savedMovieCheck) {
+      setSearchSavedResult(getShortMovies(searchSavedResult));
+    } else if (foundSavedMovies.length === 0) {
+      setSearchSavedResult(savedMovies);
+    } else {
+      setSearchSavedResult(foundSavedMovies);
+    }
+  }, [savedMovieCheck]);
+
+  // === ПАГИНАЦИЯ ===
+
   const addMovies = () => setLimit(limit * 2);
 
   // Адаптация количества карточек в зависимости от ширины экрана
@@ -322,13 +343,11 @@ function App() {
               element={(
                 <SavedMovies
                   onSearchSubmit={handleSavedSearchSubmit}
-                  onHandleCheck={handleShortFilter}
+                  onHandleSavedMovieCheck={handleSavedMovieCheck}
                   savedMovies={searchSavedResult}
                   onDelete={handleDeleteMovie}
-                  shortChecked={shortChecked}
                   notFound={notFound}
                   errorText={errorText}
-                  onSearchValue={setSearchValue}
                 />
               )}
             />
