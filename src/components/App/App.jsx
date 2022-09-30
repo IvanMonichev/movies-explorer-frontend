@@ -171,7 +171,7 @@ function App() {
 
   // Отрисовка отрицательного результата при поиске фильмов
   useEffect(() => {
-    if (pathName === '/movies') {
+    if (pathName === '/movies' && searchResult) {
       if (searchResult.length === 0) {
         setNotFound(true);
         setErrorText('Ничего не найдено');
