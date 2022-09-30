@@ -54,9 +54,7 @@ function MoviesCard({
           )}
       </div>
       <div className="movies__image-container">
-        <a className="movies-list__link-image" href={trailerLink} target="_blank" rel="noreferrer">
-          <img className="movies__image" src={images} alt={`Изображение фильма – ${name}`} />
-        </a>
+        <img className="movies__image" src={images} alt={`Изображение фильма – ${name}`} />
       </div>
     </li>
   );

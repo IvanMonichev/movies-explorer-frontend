@@ -48,17 +48,8 @@
   height: 134px;
   padding: 6px;
   box-sizing: border-box;
-  transition: transform 1s;
   position: relative;
   z-index: 1;
-}
-
-.movies-list__link-image {
-  z-index: 3;
-}
-
-.movies__image:hover {
-  transform: scale(0.9);
 }
 
 .movies-list__save {
