@@ -34,16 +34,12 @@ function App() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
 
-  useEffect(() => {
-    setSearchValue(localStorage.getItem('searchValue'));
-  }, []);
-
   // Получение доступа
   const getAccess = () => {
     mainApi.getUserInfo()
       .then((data) => {
         setLoggedIn(true);
-        navigate('/');
+        navigate('/movies');
         setCurrentUser(data);
       })
       .catch((error) => {
@@ -109,15 +105,6 @@ function App() {
 
   const getShortMovies = (movies) => movies.filter((movie) => movie.duration <= 40);
 
-  // Установка чекбокса при загрузке страницы
-  useEffect(() => {
-    if (localStorage.getItem('savedChecked') === 'true') {
-      setShortChecked(true);
-    } else {
-      setShortChecked(false);
-    }
-  }, []);
-
   // Отрисовка отрицательного результата при поиске фильмов
   useEffect(() => {
     if (searchResult.length === 0) {
@@ -138,18 +125,10 @@ function App() {
   }, [navigate]);
 
   // Повторный рендеринг
-  useEffect(() => {
-    const foundMovies = JSON.parse(localStorage.getItem('foundMovies'));
-    if (foundMovies) {
-      setNotFound(false);
-      setNoSearch(false);
-      if (shortChecked) {
-        setSearchResult(getShortMovies(foundMovies));
-      } else {
-        setSearchResult(foundMovies);
-      }
-    }
-  }, [shortChecked]);
+
+  /*
+
+*/
 
   const handleSavedShortFilter = () => {
     if (!shortChecked) {
@@ -161,11 +140,44 @@ function App() {
     }
   };
 
+  // Рендеринг после обновления.
+  useEffect(() => {
+    const searchLocalResult = JSON.parse(localStorage.getItem('searchResult'));
+    if (searchLocalResult.length !== 0) {
+      setNoSearch(false);
+      setSearchResult(searchLocalResult);
+    }
+    setSearchValue(localStorage.getItem('searchValue'));
+    if (localStorage.getItem('savedChecked') === 'true') {
+      setShortChecked(true);
+    } else {
+      setShortChecked(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const foundLocalMovies = JSON.parse(localStorage.getItem('foundMovies'));
+    console.log(foundLocalMovies);
+    if (foundLocalMovies) {
+      setNotFound(false);
+      setNoSearch(false);
+      if (shortChecked) {
+        setSearchResult(getShortMovies(foundLocalMovies));
+      } else {
+        setSearchResult(foundLocalMovies);
+      }
+    }
+  }, [shortChecked]);
+
+  // Сохранение результата.
+  useEffect(() => {
+    localStorage.setItem('searchResult', JSON.stringify(searchResult));
+  }, [searchResult, shortChecked]);
+
   // Установка фильтра
   const handleShortFilter = () => {
     setShortChecked(!shortChecked);
     localStorage.setItem('savedChecked', !shortChecked);
-    handleSavedShortFilter();
   };
 
   // Проверка списка фильма по чекбоксу
@@ -184,11 +196,10 @@ function App() {
     return (movieRu.includes(value) || movieEn.includes(value)) && item;
   });
 
-  // Сохранение отфильтрованного списка фильмов
   const handleSortedMovies = (movies, query) => {
     const foundMovies = getFoundMovies(movies, query);
-    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
     const checkedMovies = checkShortFilter(foundMovies);
+    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
     setSearchResult(checkedMovies);
   };
 

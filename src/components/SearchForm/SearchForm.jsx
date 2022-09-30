@@ -12,8 +12,8 @@ function SearchForm(
 ) {
   const handleSearchSubmit = (data) => {
     onSearchSubmit(data.search);
-    onSearchValue(data.search);
     localStorage.setItem('searchValue', data.search);
+    onSearchValue(data.search);
   };
 
   const {
