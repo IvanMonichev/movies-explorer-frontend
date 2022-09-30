@@ -10,6 +10,7 @@ function Profile({ onCurrentUser, onLogout }) {
   const [newName, setNewName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
   const [isValid, setIsValid] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const {
     register,
@@ -49,7 +50,10 @@ function Profile({ onCurrentUser, onLogout }) {
       .catch((error) => {
         console.log(error);
       })
-      .finally(() => handleActiveForm());
+      .finally(() => {
+        handleActiveForm();
+        setIsSuccess(true);
+      });
   };
 
   return (
@@ -117,6 +121,7 @@ function Profile({ onCurrentUser, onLogout }) {
               )
               : (
                 <>
+                  <span className={`form-body__error_submit form-body__notification ${isSuccess ? 'form-body__notification_active' : ''}`}>Вы успешно обновили профиль!</span>
                   <button type="button" className="form-profile__text form-profile__text_separator" onClick={handleActiveForm}>Редактировать</button>
                   <button type="button" className="form-profile__text form-profile__text_important" onClick={onLogout}>Выйти из аккаунта</button>
                 </>
