@@ -4,7 +4,9 @@ import HeadMain from '../HeadMain/HeadMain';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 
-function Profile({ onCurrentUser, onLogout }) {
+function Profile({
+  onCurrentUser, onLogout, inactiveForm, onSetInactiveForm,
+}) {
   const { name, email } = useContext(CurrentUserContext);
   const [activeForm, setActiveForm] = useState(false);
   const [newName, setNewName] = useState(name);
@@ -43,6 +45,7 @@ function Profile({ onCurrentUser, onLogout }) {
   }, [handleChangeName, handleChangeEmail]);
 
   const handleUpdateSubmit = () => {
+    onSetInactiveForm(true);
     mainApi.updateUser(newName, newEmail)
       .then((response) => {
         onCurrentUser(response);
@@ -53,6 +56,7 @@ function Profile({ onCurrentUser, onLogout }) {
       .finally(() => {
         handleActiveForm();
         setIsSuccess(true);
+        onSetInactiveForm(false);
       });
   };
 
@@ -71,7 +75,7 @@ function Profile({ onCurrentUser, onLogout }) {
                 id="name"
                 defaultValue={name || ''}
                 onChange={handleChangeName}
-                disabled={!activeForm}
+                disabled={!activeForm || inactiveForm}
                 {...register('name', {
                   required: 'Нужно ввести имя',
                   maxLength: {
@@ -98,7 +102,7 @@ function Profile({ onCurrentUser, onLogout }) {
                 className="form-body__input form-profile__input"
                 id="email"
                 defaultValue={email || ''}
-                disabled={!activeForm}
+                disabled={!activeForm || inactiveForm}
                 {...register('email', {
                   required: 'Нужно ввести электронную почту',
                   pattern: {
@@ -116,7 +120,7 @@ function Profile({ onCurrentUser, onLogout }) {
                   <span className="form-body__error_submit form-profile__error">
                     {(errors.name && errors.name.message) || (errors.email && errors.email.message)}
                   </span>
-                  <button type="submit" className={`form-body__button ${!isValid ? 'form-body__button_disabled' : ''}`} disabled={!isValid}>Сохранить</button>
+                  <button type="submit" className={`form-body__button ${!isValid || inactiveForm ? 'form-body__button_disabled' : ''}`} disabled={!isValid || inactiveForm}>Сохранить</button>
                 </>
               )
               : (

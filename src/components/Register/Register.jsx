@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import FormTemplate from '../FormTemplate/FormTemplate';
 
-function Register({ onRegisterSubmit, submitError }) {
+function Register({ onRegisterSubmit, submitError, inactiveForm }) {
   const {
     register,
     formState: {
@@ -32,6 +32,7 @@ function Register({ onRegisterSubmit, submitError }) {
       onSubmit={onRegisterSubmit}
       // 'useState' is not defined  no-undef
       submitError={submitError}
+      inactiveForm={inactiveForm}
     >
       <label htmlFor="name" className="form-body__label">
         Имя
@@ -39,6 +40,7 @@ function Register({ onRegisterSubmit, submitError }) {
           type="text"
           className={`form-body__input ${errors.name && 'form-body__input_error'}`}
           id="name"
+          disabled={inactiveForm}
           {...register('name', {
             required: 'Нужно ввести имя',
             maxLength: {
@@ -63,6 +65,7 @@ function Register({ onRegisterSubmit, submitError }) {
           type="email"
           className={`form-body__input ${errors.email && 'form-body__input_error'}`}
           id="email"
+          disabled={inactiveForm}
           {...register('email', {
             required: 'Нужно ввести электронную почту',
             pattern: {
@@ -79,6 +82,7 @@ function Register({ onRegisterSubmit, submitError }) {
           type="password"
           className={`form-body__input ${errors.password && 'form-body__input_error'}`}
           id="password"
+          disabled={inactiveForm}
           {...register('password', {
             required: 'Нужно ввести пароль',
             minLength: {

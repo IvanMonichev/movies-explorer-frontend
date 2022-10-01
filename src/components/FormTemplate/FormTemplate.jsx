@@ -16,6 +16,7 @@ function FormTemplate(
     onHandleSubmit,
     onSubmit,
     submitError,
+    inactiveForm,
   },
 ) {
   return (
@@ -31,7 +32,7 @@ function FormTemplate(
             <form className="form-body register__form" onSubmit={onHandleSubmit(onSubmit)}>
               {children}
               <span className={`form-body__error form-body__error_submit ${submitError && 'form-body__error_submit_is-active'}`}>{submitError}</span>
-              <button type="submit" className={`form-body__button ${!isValid ? 'form-body__button_disabled' : ''}`} disabled={!isValid}>{buttonText}</button>
+              <button type="submit" className={`form-body__button ${!isValid || inactiveForm ? 'form-body__button_disabled' : ''}`} disabled={!isValid || inactiveForm}>{buttonText}</button>
               <p className="form__text">
                 {formText}
                 <Link to={link} className="navigation-link form__link">{linkText}</Link>

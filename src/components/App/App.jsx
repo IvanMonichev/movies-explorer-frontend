@@ -33,6 +33,7 @@ function App() {
   const [limit, setLimit] = useState(0);
   const [shortChecked, setShortChecked] = useState(false);
   const [savedMovieCheck, setSavedMovieCheck] = useState(false);
+  const [inactiveForm, setInactiveForm] = useState(false);
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const pathName = useLocation().pathname;
@@ -77,6 +78,7 @@ function App() {
   useEffect(getAccess, []);
 
   const handleLoginSubmit = ({ email, password }) => {
+    setInactiveForm(true);
     mainApi.loginUser(email, password)
       .then(() => {
         setLoggedIn(true);
@@ -91,10 +93,12 @@ function App() {
         } else {
           setSubmitError('На сервере произошла ошибка.');
         }
-      });
+      })
+      .finally(() => setInactiveForm(false));
   };
 
   const handleRegisterSubmit = ({ name, email, password }) => {
+    setInactiveForm(true);
     mainApi.createUser(name, email, password)
       .then(() => {
         setSubmitError('');
@@ -107,7 +111,8 @@ function App() {
           return;
         }
         setSubmitError('На сервере произошла ошибка.');
-      });
+      })
+      .finally(() => setInactiveForm(false));
   };
 
   // === ПАГИНАЦИЯ ===
@@ -247,7 +252,6 @@ function App() {
     getLimit();
     const foundSavedMovies = getFoundMovies(savedMovies, query);
     const checkedSavedMovies = checkShortSavedFilter(foundSavedMovies);
-    console.log(checkedSavedMovies);
     setFoundSavedMovies(foundSavedMovies);
     setSearchSavedResult(checkedSavedMovies);
   };
@@ -273,7 +277,6 @@ function App() {
     }
     mainApi.createMovie(dataMovie)
       .then((response) => {
-        console.log(response);
         setSavedMovies([...savedMovies, response]);
         setSearchSavedResult([...searchSavedResult, response]);
       })
@@ -362,11 +365,11 @@ function App() {
                 />
               )}
             />
-            <Route path="/profile" element={<Profile onCurrentUser={setCurrentUser} onLoggedIn={setLoggedIn} onLogout={handleLogout} />} />
+            <Route path="/profile" element={<Profile onCurrentUser={setCurrentUser} onLoggedIn={setLoggedIn} onLogout={handleLogout} inactiveForm={inactiveForm} onSetInactiveForm={setInactiveForm} />} />
           </Route>
         </Route>
-        <Route path="/sign-in" element={<Login onLoginSubmit={handleLoginSubmit} submitError={submitError} />} />
-        <Route path="/sign-up" element={<Register onRegisterSubmit={handleRegisterSubmit} submitError={submitError} />} />
+        <Route path="/sign-in" element={<Login onLoginSubmit={handleLoginSubmit} submitError={submitError} inactiveForm={inactiveForm} />} />
+        <Route path="/sign-up" element={<Register onRegisterSubmit={handleRegisterSubmit} submitError={submitError} inactiveForm={inactiveForm} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </CurrentUserContext.Provider>
