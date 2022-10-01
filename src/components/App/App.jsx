@@ -234,12 +234,19 @@ function App() {
   }, [searchResult]);
 
   // === СОХРАНЁННЫЕ ФИЛЬМЫ ===
+  const checkShortSavedFilter = (movies) => {
+    if (savedMovieCheck) {
+      return getShortMovies(movies);
+    }
+    return movies;
+  };
 
   const handleSavedSearchSubmit = (query) => {
     setNotFound(false);
     getLimit();
     const foundSavedMovies = getFoundMovies(savedMovies, query);
-    const checkedSavedMovies = checkShortFilter(foundSavedMovies);
+    const checkedSavedMovies = checkShortSavedFilter(foundSavedMovies);
+    console.log(checkedSavedMovies);
     setFoundSavedMovies(foundSavedMovies);
     setSearchSavedResult(checkedSavedMovies);
   };
