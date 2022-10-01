@@ -39,6 +39,21 @@ function App() {
 
   // === ПОЛЬЗОВАТЕЛЬ ===
 
+  const handleLogout = () => {
+    mainApi.logoutUser()
+      .then()
+      .catch((error) => console.log(error));
+    localStorage.clear();
+    setLoggedIn(false);
+    setCurrentUser([]);
+    setSearchResult([]);
+    setSearchValue('');
+    setShortChecked(false);
+    setSavedMovies([]);
+    setFoundSavedMovies([]);
+    setSearchSavedResult([]);
+  };
+
   // Получение доступа
   const getAccess = () => {
     mainApi.getUserInfo()
@@ -48,6 +63,7 @@ function App() {
       })
       .catch((error) => {
         setLoggedIn(false);
+        handleLogout();
         if (error === 400) {
           console.log('400 - токен не передан или передан не в том формате');
         } else if (error === 401) {
@@ -76,21 +92,6 @@ function App() {
           setSubmitError('На сервере произошла ошибка.');
         }
       });
-  };
-
-  const handleLogout = () => {
-    mainApi.logoutUser()
-      .then()
-      .catch((error) => console.log(error));
-    localStorage.clear();
-    setLoggedIn(false);
-    setCurrentUser([]);
-    setSearchResult([]);
-    setSearchValue('');
-    setShortChecked(false);
-    setSavedMovies([]);
-    setFoundSavedMovies([]);
-    setSearchSavedResult([]);
   };
 
   const handleRegisterSubmit = ({ name, email, password }) => {
@@ -270,9 +271,9 @@ function App() {
       handleDeleteMovie(savedMovie);
       return;
     }
-
     mainApi.createMovie(dataMovie)
       .then((response) => {
+        console.log(response);
         setSavedMovies([...savedMovies, response]);
         setSearchSavedResult([...searchSavedResult, response]);
       })
@@ -285,18 +286,20 @@ function App() {
 
   // Отрисовка сохранённых фильмов
   useEffect(() => {
-    setLoading(true);
-    setNotFound(false);
-    setSavedMovieCheck(false);
-    mainApi.getMovies()
-      .then((response) => {
-        const userSavedMovies = response.filter((item) => item.owner === currentUser._id);
-        setSavedMovies(userSavedMovies);
-        setSearchSavedResult(userSavedMovies);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
-  }, [navigate]);
+    if ((pathName === '/movies') || (pathName === '/saved-movies')) {
+      setLoading(true);
+      setNotFound(false);
+      setSavedMovieCheck(false);
+      mainApi.getMovies()
+        .then((response) => {
+          const userSavedMovies = response.filter((item) => item.owner === currentUser._id);
+          setSavedMovies(userSavedMovies);
+          setSearchSavedResult(userSavedMovies);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (pathName === '/saved-movies') {
