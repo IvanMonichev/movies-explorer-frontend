@@ -208,7 +208,9 @@ function App() {
   useEffect(() => {
     if (pathName === '/movies') {
       const searchLocalResult = JSON.parse(localStorage.getItem('searchResult'));
-      setSearchResult(searchLocalResult);
+      if (searchLocalResult) {
+        setSearchResult(searchLocalResult);
+      }
       setSearchValue(localStorage.getItem('searchValue'));
       if (localStorage.getItem('savedChecked') === 'true') {
         setShortChecked(true);
