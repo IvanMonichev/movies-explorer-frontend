@@ -18,7 +18,7 @@ import moviesApi from '../../utils/MoviesApi';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [submitError, setSubmitError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ function App() {
   const pathName = useLocation().pathname;
 
   // === ПОЛЬЗОВАТЕЛЬ ===
-  console.log(loggedIn);
+
   // Получение доступа
   const getAccess = () => {
     mainApi.getUserInfo()
@@ -47,6 +47,7 @@ function App() {
         setCurrentUser(data);
       })
       .catch((error) => {
+        setLoggedIn(false);
         if (error === 400) {
           console.log('400 - токен не передан или передан не в том формате');
         } else if (error === 401) {
