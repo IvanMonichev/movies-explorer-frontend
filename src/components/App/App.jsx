@@ -38,13 +38,12 @@ function App() {
   const pathName = useLocation().pathname;
 
   // === ПОЛЬЗОВАТЕЛЬ ===
-
+  console.log(loggedIn);
   // Получение доступа
   const getAccess = () => {
     mainApi.getUserInfo()
       .then((data) => {
         setLoggedIn(true);
-        navigate('/movies');
         setCurrentUser(data);
       })
       .catch((error) => {

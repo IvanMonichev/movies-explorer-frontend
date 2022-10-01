@@ -1,4 +1,5 @@
 import React from 'react';
+import validator from 'validator';
 import { useLocation } from 'react-router-dom';
 
 function MoviesCard({
@@ -30,7 +31,7 @@ function MoviesCard({
   return (
     <li className="movies-list__item">
       <div className="movies-content__content">
-        <h2 className="movies-list__name"><a className="movies-list__link" href={trailerLink} target="_blank" rel="noreferrer">{name}</a></h2>
+        <h2 className="movies-list__name"><a className="movies-list__link" href={validator.isURL(trailerLink) ? trailerLink : 'https://www.youtube.com/'} target="_blank" rel="noreferrer">{name}</a></h2>
         <p className="movies-list__duration">{convertDuration(duration)}</p>
         {
           useLocation().pathname === '/movies'
