@@ -3,12 +3,29 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import HeadMain from '../HeadMain/HeadMain';
 
-function SavedMovies() {
+function SavedMovies(
+  {
+    savedMovies,
+    onDelete,
+    onSearchSubmit,
+    onHandleSavedMovieCheck,
+    notFound,
+    errorText,
+  },
+) {
   return (
     <>
       <HeadMain titleName="Сохранённые фильмы" />
-      <SearchForm />
-      <MoviesCardList />
+      <SearchForm
+        onSearchSubmit={onSearchSubmit}
+        onHandleSavedMovieCheck={onHandleSavedMovieCheck}
+      />
+      <MoviesCardList
+        movies={savedMovies}
+        onDelete={onDelete}
+        notFound={notFound}
+        errorText={errorText}
+      />
     </>
   );
 }
