@@ -1,5 +1,5 @@
 const MOVIES_URL = 'https://api.nomoreparties.co/beatfilm-movies';
-const BASE_URL = 'https://api.myfilms.nomoredomains.sbs';
+const BASE_URL = 'https://api.best-film.monichev-id.ru';
 
 export {
   MOVIES_URL,
