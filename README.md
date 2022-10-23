@@ -22,7 +22,7 @@
 ### Ссылки
 - Ссылка на макет: [https://disk.yandex.ru/d/s1nW3_pD_mkr7g](https://disk.yandex.ru/d/s1nW3_pD_mkr7g)
 - Ссылка на пулреквест: [https://github.com/IvanMonichev/movies-explorer-frontend/pull/2](https://github.com/IvanMonichev/movies-explorer-frontend/pull/2)
-- Ссылка на проект: [https://myfilms.nomoredomains.icu](https://myfilms.nomoredomains.icu)
+- Ссылка на проект: [https://best-film.monichev-id.ru](https://best-film.monichev-id.ru)
 - IP сервера: `51.250.68.212 `
 
 ### Команды для работы
